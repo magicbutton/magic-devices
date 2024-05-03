@@ -1,0 +1,13 @@
+{
+  "version": {
+    "minor": 0,
+    "build": 7,
+    "patch": 7,
+    "major": 0
+  },
+  "appname": "magic-devices",
+  "dnsprod": "apps.intra.nexigroup.com",
+  "dnstest": "apps-test.intra.nexigroup.com",
+  "imagename": "ghcr.io/magicbutton/magic-devices",
+  "port": 4342
+}

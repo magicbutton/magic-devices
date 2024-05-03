@@ -1,0 +1,419 @@
+name: apps
+type: magicservice
+namespace: apps
+organisation: magicbutton
+magicappversion: v0.0.1
+description: A simple app to manage users, groups and memberships
+
+baseattributes:
+  urlrecord:
+    &recordAttributesWithURL # Id + Created + Updated + CreatedBy + UpdatedBy are implicit
+    - name: tenant
+      type: string
+      required: true
+    - name: name
+      type: string
+      required: true
+    - name: description
+      type: string
+      required: false
+    - name: url
+      type: string
+      required: true
+  record:
+    &recordAttributes # Id + Created + Updated + CreatedBy + UpdatedBy are implicit
+    - name: tenant
+      type: string
+      required: true
+    - name: name
+      type: string
+      required: true
+    - name: description
+      type: string
+      required: false
+
+entities:
+  person: &person
+    name: person
+    description: person
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: unique_person_id
+        type: string
+        required: true
+      - name: displayname
+        type: string
+        required: true
+      - name: email
+        type: string
+        required: true
+  application: &application
+    name: application
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: key
+        type: string
+        required: true
+      - name: displayname
+        type: string
+        required: true
+      - name: imported_ownername
+        type: string
+        required: true
+      - name: owner
+        required: false
+        type: reference
+        entity: *person
+  campaign: &campaign
+    name: campaign
+    baselineattributes: *recordAttributesWithURL
+    additionalattributes:
+      - name: key
+        type: string
+        required: true
+      - name: displayname
+        type: string
+        required: true
+      - name: owner
+        required: false
+        type: reference
+        entity: *person
+  survey: &survey
+    name: survey
+    baselineattributes: *recordAttributesWithURL
+    additionalattributes:
+      - name: key
+        type: string
+        required: true
+      - name: displayname
+        type: string
+        required: true
+      - name: owner
+        required: false
+        type: reference
+        entity: *person
+      - name: campaign
+        required: false
+        type: reference
+        entity: *campaign
+      - name: question1
+        type: string
+        required: false
+      - name: question2
+        type: string
+        required: false
+      - name: question3
+        type: string
+        required: false
+      - name: question4
+        type: string
+        required: false
+      - name: question5
+        type: string
+        required: false
+      - name: question6
+        type: string
+        required: false
+      - name: question7
+        type: string
+        required: false
+      - name: question8
+        type: string
+        required: false
+      - name: question9
+        type: string
+        required: false
+      - name: truefalse1
+        type: string
+        required: false
+      - name: truefalse2
+        type: string
+        required: false
+      - name: truefalse3
+        type: string
+        required: false
+      - name: datetime1
+        type: string
+        required: false
+      - name: datetime2
+        type: string
+        required: false
+      - name: datetime3
+        type: string
+        required: false
+      - name: number1
+        type: string
+        required: false
+      - name: number2
+        type: string
+        required: false
+      - name: number3
+        type: string
+        required: false
+      - name: questions
+        type: json
+        required: false
+  surveyresponse: &surveyresponse
+    name: surveyresponse
+
+    baselineattributes: *recordAttributesWithURL
+    additionalattributes:
+      - name: responsedate
+        type: datetime
+        required: false
+      - name: key
+        type: string
+        required: true
+      - name: displayname
+        type: string
+        required: true
+      - name: respondent
+        required: false
+        type: reference
+        entity: *person
+      - name: survey
+        required: false
+        type: reference
+        entity: *survey
+      - name: application
+        required: false
+        type: reference
+        entity: *application
+      - name: questions
+        type: json
+        required: false
+      - name: answers
+        type: json
+        required: false
+      - name: answer1
+        type: string
+        required: false
+      - name: answer2
+        type: string
+        required: false
+      - name: answer3
+        type: string
+        required: false
+      - name: answer4
+        type: string
+        required: false
+      - name: answer5
+        type: string
+        required: false
+      - name: answer6
+        type: string
+        required: false
+      - name: answer7
+        type: string
+        required: false
+      - name: answer8
+        type: string
+        required: false
+      - name: answer9
+        type: string
+        required: false
+      - name: truefalse1
+        type: boolean
+        required: false
+      - name: truefalse2
+        type: boolean
+        required: false
+      - name: truefalse3
+        type: boolean
+        required: false
+      - name: datetime1
+        type: datetime
+        required: false
+      - name: datetime2
+
+        type: datetime
+        required: false
+      - name: datetime3
+        type: datetime
+        required: false
+      - name: number1
+        type: int
+        required: false
+      - name: number2
+        type: int
+        required: false
+
+      - name: number3
+        type: int
+        required: false
+
+  # Use for storing sites, folders etc.
+
+models:
+  itemMethods: &itemMethods
+    - name: read
+      description: Read a single item
+      parameters:
+        - name: id
+          description: The id of the item
+          type: int
+          required: true
+      returns:
+        type: object
+
+    - name: create
+      description: Create a new item
+      parameters:
+        - name: item
+          description: The item to create
+          type: object
+          required: true
+      returns:
+        type: object
+    - name: update
+      description: Update an existing item
+      parameters:
+        - name: item
+          description: The item to update
+          type: object
+          required: true
+      returns:
+        type: object
+
+    - name: delete
+      description: Delete an existing item
+      parameters:
+        - name: id
+          description: The id of the item
+          type: int
+          required: true
+      returns:
+        type: void
+    - name: search
+      description: Search for items
+      parameters:
+        - name: query
+          description: The search query
+          type: string
+          required: true
+
+      returns:
+        type: page
+
+services:
+  - name: person
+    description: Manage persons
+    entity:
+      type: record
+      model: person
+      objectname: Person
+      entity: *person
+    methods: *itemMethods
+
+  - name: application
+    description: Manage applications
+    entity:
+      type: record
+      model: application
+      objectname: Application
+      entity: *application
+    methods: *itemMethods
+
+  - name: campaign
+    description: Manage campaigns
+    entity:
+      type: record
+      model: campaign
+      objectname: Campaign
+      entity: *campaign
+    methods: *itemMethods
+
+  - name: survey
+    description: Manage surveys
+    entity:
+      type: record
+      model: survey
+      objectname: Survey
+      entity: *survey
+    methods: *itemMethods
+
+  - name: surveyresponse
+    description: Manage survey responses
+    entity:
+      type: record
+      model: surveyresponse
+      objectname: SurveyResponse
+      entity: *surveyresponse
+    methods: *itemMethods
+icons:
+  ChevronLeft: &ChevronLeft
+    name: ChevronLeft
+
+  ChevronRight: &ChevronRight
+    name: ChevronRight
+  Copy: &Copy
+    name: Copy
+  CreditCard: &CreditCard
+    name: CreditCard
+  File: &File
+    name: File
+  Home: &Home
+    name: Home
+  LineChart: &LineChart
+    name: LineChart
+  ListFilter: &ListFilter
+    name: ListFilter
+  MoreVertical: &MoreVertical
+    name: MoreVertical
+  Package: &Package
+    name: Package
+  Package2: &Package2
+    name: Package2
+  PanelLeft: &PanelLeft
+    name: PanelLeft
+  Search: &Search
+    name: Search
+  Settings: &Settings
+    name: Settings
+  ShoppingCart: &ShoppingCart
+    name: ShoppingCart
+  Truck: &Truck
+    name: Truck
+  Users2: &Users2
+    name: Users2
+
+components:
+  listowners: &listowners
+    object:
+      entity: *person
+      relations:
+        - name: applications
+          entity: *application
+        - name: surveys
+          entity: *survey
+  listcampaigns: &listcampaigns
+    object:
+      entity: *campaign
+      relations: # this will make it possible to link to the person
+        - name: person
+          entity: *person
+  listsurveys: &listsurveys
+    object:
+      entity: *survey
+      relations:
+        - name: person
+          entity: *person
+        - name: campaign
+          entity: *campaign
+# ui:
+#   - name: owners
+#     components: listowners
+#       - name: listowners
+#         reference: *listowners
+
+# icons:
+
+# menu:
+#   top:
+#   left:
+#     you:
+#       slug: you
+
+#     applications:
+#     campaigns:
+

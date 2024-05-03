@@ -1,0 +1,5 @@
+sessions
+workdir
+.DS_Store
+.env
+.koksmat/app/__debug*
