@@ -6,33 +6,31 @@ keep: false
 ---
 */   
 //GenerateGoModel v1
-package personmodel
+package exceptiontypemodel
 import (
 	"encoding/json"
 	"time"
     // 
 )
 
-func UnmarshalPerson(data []byte) (Person, error) {
-	var r Person
+func UnmarshalExceptiontype(data []byte) (Exceptiontype, error) {
+	var r Exceptiontype
 	err := json.Unmarshal(data, &r)
 	return r, err
 }
 
-func (r *Person) Marshal() ([]byte, error) {
+func (r *Exceptiontype) Marshal() ([]byte, error) {
 	return json.Marshal(r)
 }
 
-type Person struct {
+type Exceptiontype struct {
     ID        int    `json:"id"`
     CreatedAt time.Time `json:"created_at"`
     UpdatedAt time.Time `json:"updated_at"`
         Tenant string `json:"tenant"`
     Name string `json:"name"`
     Description string `json:"description"`
-    Unique_Person_Id string `json:"unique_person_id"`
-    Displayname string `json:"displayname"`
-    Email string `json:"email"`
+    Family string `json:"family"`
 
 }
 

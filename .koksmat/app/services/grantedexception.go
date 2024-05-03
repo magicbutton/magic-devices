@@ -11,14 +11,14 @@ import (
 	"encoding/json"
     "fmt"
 	"log"
-    "github.com/magicbutton/magic-devices/services/endpoints/person"
-    "github.com/magicbutton/magic-devices/services/models/personmodel"
+    "github.com/magicbutton/magic-devices/services/endpoints/grantedexception"
+    "github.com/magicbutton/magic-devices/services/models/grantedexceptionmodel"
 
 	. "github.com/magicbutton/magic-devices/utils"
 	"github.com/nats-io/nats.go/micro"
 )
 
-func HandlePersonRequests(req micro.Request) {
+func HandleGrantedexceptionRequests(req micro.Request) {
 
     rawRequest := string(req.Data())
 	if rawRequest == "ping" {
@@ -47,10 +47,10 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := person.PersonRead(StrToInt(payload.Args[1]))
+    result,err := grantedexception.GrantedexceptionRead(StrToInt(payload.Args[1]))
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling PersonRead: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling GrantedexceptionRead: %s", err))
 
 
         return
@@ -68,7 +68,7 @@ if (len(payload.Args) < 2) {
 
 
                 // transformer v1
-            object := personmodel.Person{}
+            object := grantedexceptionmodel.Grantedexception{}
             body := ""
 
             json.Unmarshal([]byte(payload.Args[1]), &body)
@@ -76,14 +76,14 @@ if (len(payload.Args) < 2) {
     
             if err != nil {
                 log.Println("Error", err)
-                ServiceResponseError(req, "Error unmarshalling person")
+                ServiceResponseError(req, "Error unmarshalling grantedexception")
                 return
             }
                      
-    result,err := person.PersonCreate(object)
+    result,err := grantedexception.GrantedexceptionCreate(object)
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling PersonCreate: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling GrantedexceptionCreate: %s", err))
 
 
         return
@@ -101,7 +101,7 @@ if (len(payload.Args) < 2) {
 
 
                 // transformer v1
-            object := personmodel.Person{}
+            object := grantedexceptionmodel.Grantedexception{}
             body := ""
 
             json.Unmarshal([]byte(payload.Args[1]), &body)
@@ -109,14 +109,14 @@ if (len(payload.Args) < 2) {
     
             if err != nil {
                 log.Println("Error", err)
-                ServiceResponseError(req, "Error unmarshalling person")
+                ServiceResponseError(req, "Error unmarshalling grantedexception")
                 return
             }
                      
-    result,err := person.PersonUpdate(object)
+    result,err := grantedexception.GrantedexceptionUpdate(object)
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling PersonUpdate: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling GrantedexceptionUpdate: %s", err))
 
 
         return
@@ -133,10 +133,10 @@ if (len(payload.Args) < 2) {
 }
 
 
-            err :=  person.PersonDelete(StrToInt(payload.Args[1]))
+            err :=  grantedexception.GrantedexceptionDelete(StrToInt(payload.Args[1]))
             if (err != nil) {
                 log.Println("Error", err)
-                ServiceResponseError(req, fmt.Sprintf("Error calling PersonDelete: %s", err))
+                ServiceResponseError(req, fmt.Sprintf("Error calling GrantedexceptionDelete: %s", err))
 
 
                 return
@@ -153,10 +153,10 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := person.PersonSearch(payload.Args[1])
+    result,err := grantedexception.GrantedexceptionSearch(payload.Args[1])
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling PersonSearch: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling GrantedexceptionSearch: %s", err))
 
 
         return

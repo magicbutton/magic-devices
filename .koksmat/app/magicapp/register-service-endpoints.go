@@ -1,4 +1,4 @@
-/*
+/* 
 File have been automatically created. To prevent the file from getting overwritten
 set the Front Matter property ´keep´ to ´true´ syntax for the code snippet
 ---
@@ -13,11 +13,9 @@ import (
 )
 
 func RegisterServiceEndpoints(root micro.Group) {
-	root.AddEndpoint("app", micro.HandlerFunc(services.HandleAppRequests))
-
-	root.AddEndpoint("person", micro.HandlerFunc(services.HandlePersonRequests))
-	root.AddEndpoint("application", micro.HandlerFunc(services.HandleApplicationRequests))
-	root.AddEndpoint("campaign", micro.HandlerFunc(services.HandleCampaignRequests))
-	root.AddEndpoint("survey", micro.HandlerFunc(services.HandleSurveyRequests))
-	root.AddEndpoint("surveyresponse", micro.HandlerFunc(services.HandleSurveyResponseRequests))
-}
+    root.AddEndpoint("person", micro.HandlerFunc(services.HandlePersonRequests))
+        root.AddEndpoint("devicetype", micro.HandlerFunc(services.HandleDevicetypeRequests))
+        root.AddEndpoint("device", micro.HandlerFunc(services.HandleDeviceRequests))
+        root.AddEndpoint("exceptiontype", micro.HandlerFunc(services.HandleExceptiontypeRequests))
+        root.AddEndpoint("grantedexception", micro.HandlerFunc(services.HandleGrantedexceptionRequests))
+    }

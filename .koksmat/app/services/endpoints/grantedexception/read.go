@@ -6,17 +6,17 @@ keep: false
 ---
 */
 //generator:  noma3
-package person
+package grantedexception
 // noma2    
 import (
 	"log"
     "errors"
-    "github.com/magicbutton/magic-devices/services/models/personmodel"
+    "github.com/magicbutton/magic-devices/services/models/grantedexceptionmodel"
     )
 
 
-func PersonRead(id int ) (*personmodel.Person,error) {
-log.Println("Calling PersonRead")
+func GrantedexceptionRead(id int ) (*grantedexceptionmodel.Grantedexception,error) {
+log.Println("Calling GrantedexceptionRead")
     
     
     

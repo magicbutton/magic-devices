@@ -47,202 +47,70 @@ entities:
       - name: email
         type: string
         required: true
-  application: &application
-    name: application
+
+  devicetype: &devicetype
+    name: devicetype
+    description: devicetype
     baselineattributes: *recordAttributes
     additionalattributes:
-      - name: key
+      - name: family
         type: string
         required: true
-      - name: displayname
-        type: string
-        required: true
-      - name: imported_ownername
-        type: string
-        required: true
-      - name: owner
-        required: false
-        type: reference
-        entity: *person
-  campaign: &campaign
-    name: campaign
-    baselineattributes: *recordAttributesWithURL
-    additionalattributes:
-      - name: key
-        type: string
-        required: true
-      - name: displayname
-        type: string
-        required: true
-      - name: owner
-        required: false
-        type: reference
-        entity: *person
-  survey: &survey
-    name: survey
-    baselineattributes: *recordAttributesWithURL
-    additionalattributes:
-      - name: key
-        type: string
-        required: true
-      - name: displayname
-        type: string
-        required: true
-      - name: owner
-        required: false
-        type: reference
-        entity: *person
-      - name: campaign
-        required: false
-        type: reference
-        entity: *campaign
-      - name: question1
-        type: string
-        required: false
-      - name: question2
-        type: string
-        required: false
-      - name: question3
-        type: string
-        required: false
-      - name: question4
-        type: string
-        required: false
-      - name: question5
-        type: string
-        required: false
-      - name: question6
-        type: string
-        required: false
-      - name: question7
-        type: string
-        required: false
-      - name: question8
-        type: string
-        required: false
-      - name: question9
-        type: string
-        required: false
-      - name: truefalse1
-        type: string
-        required: false
-      - name: truefalse2
-        type: string
-        required: false
-      - name: truefalse3
-        type: string
-        required: false
-      - name: datetime1
-        type: string
-        required: false
-      - name: datetime2
-        type: string
-        required: false
-      - name: datetime3
-        type: string
-        required: false
-      - name: number1
-        type: string
-        required: false
-      - name: number2
-        type: string
-        required: false
-      - name: number3
-        type: string
-        required: false
-      - name: questions
-        type: json
-        required: false
-  surveyresponse: &surveyresponse
-    name: surveyresponse
 
-    baselineattributes: *recordAttributesWithURL
+  device: &device
+    name: device
+    description: device
+    baselineattributes: *recordAttributes
     additionalattributes:
-      - name: responsedate
-        type: datetime
-        required: false
-      - name: key
+      - name: unique_device_id
         type: string
         required: true
       - name: displayname
         type: string
         required: true
-      - name: respondent
-        required: false
+      - name: macaddress
+        type: string
+        required: true
+      - name: devicetype
         type: reference
-        entity: *person
-      - name: survey
-        required: false
-        type: reference
-        entity: *survey
-      - name: application
-        required: false
-        type: reference
-        entity: *application
-      - name: questions
-        type: json
-        required: false
-      - name: answers
-        type: json
-        required: false
-      - name: answer1
-        type: string
-        required: false
-      - name: answer2
-        type: string
-        required: false
-      - name: answer3
-        type: string
-        required: false
-      - name: answer4
-        type: string
-        required: false
-      - name: answer5
-        type: string
-        required: false
-      - name: answer6
-        type: string
-        required: false
-      - name: answer7
-        type: string
-        required: false
-      - name: answer8
-        type: string
-        required: false
-      - name: answer9
-        type: string
-        required: false
-      - name: truefalse1
+        entity: *devicetype
+        required: true
+      - name: antivirus
         type: boolean
         required: false
-      - name: truefalse2
+      - name: dlp
         type: boolean
         required: false
-      - name: truefalse3
+      - name: endpointdetection
         type: boolean
         required: false
-      - name: datetime1
-        type: datetime
+      - name: diskentryptionprimarydisk
+        type: boolean
         required: false
-      - name: datetime2
-
-        type: datetime
+      - name: diskentryptionsecondarydisk
+        type: boolean
         required: false
-      - name: datetime3
-        type: datetime
-        required: false
-      - name: number1
-        type: int
-        required: false
-      - name: number2
-        type: int
-        required: false
-
-      - name: number3
-        type: int
-        required: false
-
-  # Use for storing sites, folders etc.
+  exceptiontype: &exceptiontype
+    name: exceptiontype
+    description: exceptiontype
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: family
+        type: string
+        required: true
+  grantedexception: &grantedexception
+    name: grantedexception
+    description: grantedexception
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: exceptiontype
+        type: reference
+        entity: *exceptiontype
+        required: true
+      - name: person
+        type: reference
+        entity: *person
+        required: true
 
 models:
   itemMethods: &itemMethods
@@ -305,115 +173,38 @@ services:
       entity: *person
     methods: *itemMethods
 
-  - name: application
-    description: Manage applications
+  - name: devicetype
+    description: Manage devicetypes
     entity:
       type: record
-      model: application
-      objectname: Application
-      entity: *application
+      model: devicetype
+      objectname: Devicetype
+      entity: *devicetype
     methods: *itemMethods
 
-  - name: campaign
-    description: Manage campaigns
+  - name: device
+    description: Manage devices
     entity:
       type: record
-      model: campaign
-      objectname: Campaign
-      entity: *campaign
+      model: device
+      objectname: Device
+      entity: *device
     methods: *itemMethods
 
-  - name: survey
-    description: Manage surveys
+  - name: exceptiontype
+    description: Manage exceptiontypes
     entity:
       type: record
-      model: survey
-      objectname: Survey
-      entity: *survey
+      model: exceptiontype
+      objectname: Exceptiontype
+      entity: *exceptiontype
     methods: *itemMethods
 
-  - name: surveyresponse
-    description: Manage survey responses
+  - name: grantedexception
+    description: Manage grantedexception
     entity:
       type: record
-      model: surveyresponse
-      objectname: SurveyResponse
-      entity: *surveyresponse
+      model: grantedexception
+      objectname: Grantedexception
+      entity: *grantedexception
     methods: *itemMethods
-icons:
-  ChevronLeft: &ChevronLeft
-    name: ChevronLeft
-
-  ChevronRight: &ChevronRight
-    name: ChevronRight
-  Copy: &Copy
-    name: Copy
-  CreditCard: &CreditCard
-    name: CreditCard
-  File: &File
-    name: File
-  Home: &Home
-    name: Home
-  LineChart: &LineChart
-    name: LineChart
-  ListFilter: &ListFilter
-    name: ListFilter
-  MoreVertical: &MoreVertical
-    name: MoreVertical
-  Package: &Package
-    name: Package
-  Package2: &Package2
-    name: Package2
-  PanelLeft: &PanelLeft
-    name: PanelLeft
-  Search: &Search
-    name: Search
-  Settings: &Settings
-    name: Settings
-  ShoppingCart: &ShoppingCart
-    name: ShoppingCart
-  Truck: &Truck
-    name: Truck
-  Users2: &Users2
-    name: Users2
-
-components:
-  listowners: &listowners
-    object:
-      entity: *person
-      relations:
-        - name: applications
-          entity: *application
-        - name: surveys
-          entity: *survey
-  listcampaigns: &listcampaigns
-    object:
-      entity: *campaign
-      relations: # this will make it possible to link to the person
-        - name: person
-          entity: *person
-  listsurveys: &listsurveys
-    object:
-      entity: *survey
-      relations:
-        - name: person
-          entity: *person
-        - name: campaign
-          entity: *campaign
-# ui:
-#   - name: owners
-#     components: listowners
-#       - name: listowners
-#         reference: *listowners
-
-# icons:
-
-# menu:
-#   top:
-#   left:
-#     you:
-#       slug: you
-
-#     applications:
-#     campaigns:
-

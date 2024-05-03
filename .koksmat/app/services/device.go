@@ -11,14 +11,14 @@ import (
 	"encoding/json"
     "fmt"
 	"log"
-    "github.com/magicbutton/magic-devices/services/endpoints/person"
-    "github.com/magicbutton/magic-devices/services/models/personmodel"
+    "github.com/magicbutton/magic-devices/services/endpoints/device"
+    "github.com/magicbutton/magic-devices/services/models/devicemodel"
 
 	. "github.com/magicbutton/magic-devices/utils"
 	"github.com/nats-io/nats.go/micro"
 )
 
-func HandlePersonRequests(req micro.Request) {
+func HandleDeviceRequests(req micro.Request) {
 
     rawRequest := string(req.Data())
 	if rawRequest == "ping" {
@@ -47,10 +47,10 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := person.PersonRead(StrToInt(payload.Args[1]))
+    result,err := device.DeviceRead(StrToInt(payload.Args[1]))
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling PersonRead: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling DeviceRead: %s", err))
 
 
         return
@@ -68,7 +68,7 @@ if (len(payload.Args) < 2) {
 
 
                 // transformer v1
-            object := personmodel.Person{}
+            object := devicemodel.Device{}
             body := ""
 
             json.Unmarshal([]byte(payload.Args[1]), &body)
@@ -76,14 +76,14 @@ if (len(payload.Args) < 2) {
     
             if err != nil {
                 log.Println("Error", err)
-                ServiceResponseError(req, "Error unmarshalling person")
+                ServiceResponseError(req, "Error unmarshalling device")
                 return
             }
                      
-    result,err := person.PersonCreate(object)
+    result,err := device.DeviceCreate(object)
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling PersonCreate: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling DeviceCreate: %s", err))
 
 
         return
@@ -101,7 +101,7 @@ if (len(payload.Args) < 2) {
 
 
                 // transformer v1
-            object := personmodel.Person{}
+            object := devicemodel.Device{}
             body := ""
 
             json.Unmarshal([]byte(payload.Args[1]), &body)
@@ -109,14 +109,14 @@ if (len(payload.Args) < 2) {
     
             if err != nil {
                 log.Println("Error", err)
-                ServiceResponseError(req, "Error unmarshalling person")
+                ServiceResponseError(req, "Error unmarshalling device")
                 return
             }
                      
-    result,err := person.PersonUpdate(object)
+    result,err := device.DeviceUpdate(object)
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling PersonUpdate: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling DeviceUpdate: %s", err))
 
 
         return
@@ -133,10 +133,10 @@ if (len(payload.Args) < 2) {
 }
 
 
-            err :=  person.PersonDelete(StrToInt(payload.Args[1]))
+            err :=  device.DeviceDelete(StrToInt(payload.Args[1]))
             if (err != nil) {
                 log.Println("Error", err)
-                ServiceResponseError(req, fmt.Sprintf("Error calling PersonDelete: %s", err))
+                ServiceResponseError(req, fmt.Sprintf("Error calling DeviceDelete: %s", err))
 
 
                 return
@@ -153,10 +153,10 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := person.PersonSearch(payload.Args[1])
+    result,err := device.DeviceSearch(payload.Args[1])
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling PersonSearch: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling DeviceSearch: %s", err))
 
 
         return

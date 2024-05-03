@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "export NODE_ENV= && next dev -p 4342",
-        "build": "next build",
+        "build": "export NODE_ENV= && next build",
         "start": "next start -p 4342",
         "lint": "next lint",
         "lint:fix": "next lint --fix"

@@ -6,17 +6,17 @@ keep: false
 ---
 */
 //generator:  noma3
-package person
+package device
 // noma2    
 import (
 	"log"
     "errors"
-    "github.com/magicbutton/magic-devices/services/models/personmodel"
+    "github.com/magicbutton/magic-devices/services/models/devicemodel"
     )
 
 
-func PersonRead(id int ) (*personmodel.Person,error) {
-log.Println("Calling PersonRead")
+func DeviceUpdate(item devicemodel.Device ) (*devicemodel.Device,error) {
+log.Println("Calling DeviceUpdate")
     
     
     

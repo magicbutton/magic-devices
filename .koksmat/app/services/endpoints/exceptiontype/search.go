@@ -6,20 +6,20 @@ keep: false
 ---
 */
 //generator:  noma3.search.v2
-package person
+package exceptiontype
 
 import (
     "log"
 
     "github.com/magicbutton/magic-devices/applogic"
     "github.com/magicbutton/magic-devices/database"
-    "github.com/magicbutton/magic-devices/services/models/personmodel"
+    "github.com/magicbutton/magic-devices/services/models/exceptiontypemodel"
     . "github.com/magicbutton/magic-devices/utils"
 )
 
-func PersonSearch(query string) (*Page[personmodel.Person], error) {
-    log.Println("Calling Personsearch")
+func ExceptiontypeSearch(query string) (*Page[exceptiontypemodel.Exceptiontype], error) {
+    log.Println("Calling Exceptiontypesearch")
 
-    return applogic.Search[database.Person, personmodel.Person]("name", query, applogic.MapPersonOutgoing)
+    return applogic.Search[database.Exceptiontype, exceptiontypemodel.Exceptiontype]("name", query, applogic.MapExceptiontypeOutgoing)
 
 }

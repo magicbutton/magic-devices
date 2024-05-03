@@ -85,8 +85,9 @@
         }
       ]
     },
-    "application": {
-      "name": "application",
+    "devicetype": {
+      "name": "devicetype",
+      "description": "devicetype",
       "baselineattributes": [
         {
           "name": "tenant",
@@ -106,67 +107,15 @@
       ],
       "additionalattributes": [
         {
-          "name": "key",
+          "name": "family",
           "type": "string",
           "required": true
-        },
-        {
-          "name": "displayname",
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "imported_ownername",
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "owner",
-          "required": false,
-          "type": "reference",
-          "entity": {
-            "name": "person",
-            "description": "person",
-            "baselineattributes": [
-              {
-                "name": "tenant",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "name",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "description",
-                "type": "string",
-                "required": false
-              }
-            ],
-            "additionalattributes": [
-              {
-                "name": "unique_person_id",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "displayname",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "email",
-                "type": "string",
-                "required": true
-              }
-            ]
-          }
         }
       ]
     },
-    "campaign": {
-      "name": "campaign",
+    "device": {
+      "name": "device",
+      "description": "device",
       "baselineattributes": [
         {
           "name": "tenant",
@@ -182,16 +131,11 @@
           "name": "description",
           "type": "string",
           "required": false
-        },
-        {
-          "name": "url",
-          "type": "string",
-          "required": true
         }
       ],
       "additionalattributes": [
         {
-          "name": "key",
+          "name": "unique_device_id",
           "type": "string",
           "required": true
         },
@@ -201,12 +145,16 @@
           "required": true
         },
         {
-          "name": "owner",
-          "required": false,
+          "name": "macaddress",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "devicetype",
           "type": "reference",
           "entity": {
-            "name": "person",
-            "description": "person",
+            "name": "devicetype",
+            "description": "devicetype",
             "baselineattributes": [
               {
                 "name": "tenant",
@@ -226,817 +174,165 @@
             ],
             "additionalattributes": [
               {
-                "name": "unique_person_id",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "displayname",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "email",
+                "name": "family",
                 "type": "string",
                 "required": true
               }
             ]
-          }
-        }
-      ]
-    },
-    "survey": {
-      "name": "survey",
-      "baselineattributes": [
-        {
-          "name": "tenant",
-          "type": "string",
+          },
           "required": true
         },
         {
-          "name": "name",
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "url",
-          "type": "string",
-          "required": true
-        }
-      ],
-      "additionalattributes": [
-        {
-          "name": "key",
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "displayname",
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "owner",
-          "required": false,
-          "type": "reference",
-          "entity": {
-            "name": "person",
-            "description": "person",
-            "baselineattributes": [
-              {
-                "name": "tenant",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "name",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "description",
-                "type": "string",
-                "required": false
-              }
-            ],
-            "additionalattributes": [
-              {
-                "name": "unique_person_id",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "displayname",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "email",
-                "type": "string",
-                "required": true
-              }
-            ]
-          }
-        },
-        {
-          "name": "campaign",
-          "required": false,
-          "type": "reference",
-          "entity": {
-            "name": "campaign",
-            "baselineattributes": [
-              {
-                "name": "tenant",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "name",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "description",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "url",
-                "type": "string",
-                "required": true
-              }
-            ],
-            "additionalattributes": [
-              {
-                "name": "key",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "displayname",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "owner",
-                "required": false,
-                "type": "reference",
-                "entity": {
-                  "name": "person",
-                  "description": "person",
-                  "baselineattributes": [
-                    {
-                      "name": "tenant",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "name",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "description",
-                      "type": "string",
-                      "required": false
-                    }
-                  ],
-                  "additionalattributes": [
-                    {
-                      "name": "unique_person_id",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "displayname",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "email",
-                      "type": "string",
-                      "required": true
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "name": "question1",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "question2",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "question3",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "question4",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "question5",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "question6",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "question7",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "question8",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "question9",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "truefalse1",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "truefalse2",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "truefalse3",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "datetime1",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "datetime2",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "datetime3",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "number1",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "number2",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "number3",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "questions",
-          "type": "json",
-          "required": false
-        }
-      ]
-    },
-    "surveyresponse": {
-      "name": "surveyresponse",
-      "baselineattributes": [
-        {
-          "name": "tenant",
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "description",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "url",
-          "type": "string",
-          "required": true
-        }
-      ],
-      "additionalattributes": [
-        {
-          "name": "responsedate",
-          "type": "datetime",
-          "required": false
-        },
-        {
-          "name": "key",
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "displayname",
-          "type": "string",
-          "required": true
-        },
-        {
-          "name": "respondent",
-          "required": false,
-          "type": "reference",
-          "entity": {
-            "name": "person",
-            "description": "person",
-            "baselineattributes": [
-              {
-                "name": "tenant",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "name",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "description",
-                "type": "string",
-                "required": false
-              }
-            ],
-            "additionalattributes": [
-              {
-                "name": "unique_person_id",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "displayname",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "email",
-                "type": "string",
-                "required": true
-              }
-            ]
-          }
-        },
-        {
-          "name": "survey",
-          "required": false,
-          "type": "reference",
-          "entity": {
-            "name": "survey",
-            "baselineattributes": [
-              {
-                "name": "tenant",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "name",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "description",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "url",
-                "type": "string",
-                "required": true
-              }
-            ],
-            "additionalattributes": [
-              {
-                "name": "key",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "displayname",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "owner",
-                "required": false,
-                "type": "reference",
-                "entity": {
-                  "name": "person",
-                  "description": "person",
-                  "baselineattributes": [
-                    {
-                      "name": "tenant",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "name",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "description",
-                      "type": "string",
-                      "required": false
-                    }
-                  ],
-                  "additionalattributes": [
-                    {
-                      "name": "unique_person_id",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "displayname",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "email",
-                      "type": "string",
-                      "required": true
-                    }
-                  ]
-                }
-              },
-              {
-                "name": "campaign",
-                "required": false,
-                "type": "reference",
-                "entity": {
-                  "name": "campaign",
-                  "baselineattributes": [
-                    {
-                      "name": "tenant",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "name",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "description",
-                      "type": "string",
-                      "required": false
-                    },
-                    {
-                      "name": "url",
-                      "type": "string",
-                      "required": true
-                    }
-                  ],
-                  "additionalattributes": [
-                    {
-                      "name": "key",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "displayname",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "owner",
-                      "required": false,
-                      "type": "reference",
-                      "entity": {
-                        "name": "person",
-                        "description": "person",
-                        "baselineattributes": [
-                          {
-                            "name": "tenant",
-                            "type": "string",
-                            "required": true
-                          },
-                          {
-                            "name": "name",
-                            "type": "string",
-                            "required": true
-                          },
-                          {
-                            "name": "description",
-                            "type": "string",
-                            "required": false
-                          }
-                        ],
-                        "additionalattributes": [
-                          {
-                            "name": "unique_person_id",
-                            "type": "string",
-                            "required": true
-                          },
-                          {
-                            "name": "displayname",
-                            "type": "string",
-                            "required": true
-                          },
-                          {
-                            "name": "email",
-                            "type": "string",
-                            "required": true
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "name": "question1",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "question2",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "question3",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "question4",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "question5",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "question6",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "question7",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "question8",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "question9",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "truefalse1",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "truefalse2",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "truefalse3",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "datetime1",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "datetime2",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "datetime3",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "number1",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "number2",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "number3",
-                "type": "string",
-                "required": false
-              },
-              {
-                "name": "questions",
-                "type": "json",
-                "required": false
-              }
-            ]
-          }
-        },
-        {
-          "name": "application",
-          "required": false,
-          "type": "reference",
-          "entity": {
-            "name": "application",
-            "baselineattributes": [
-              {
-                "name": "tenant",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "name",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "description",
-                "type": "string",
-                "required": false
-              }
-            ],
-            "additionalattributes": [
-              {
-                "name": "key",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "displayname",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "imported_ownername",
-                "type": "string",
-                "required": true
-              },
-              {
-                "name": "owner",
-                "required": false,
-                "type": "reference",
-                "entity": {
-                  "name": "person",
-                  "description": "person",
-                  "baselineattributes": [
-                    {
-                      "name": "tenant",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "name",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "description",
-                      "type": "string",
-                      "required": false
-                    }
-                  ],
-                  "additionalattributes": [
-                    {
-                      "name": "unique_person_id",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "displayname",
-                      "type": "string",
-                      "required": true
-                    },
-                    {
-                      "name": "email",
-                      "type": "string",
-                      "required": true
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "name": "questions",
-          "type": "json",
-          "required": false
-        },
-        {
-          "name": "answers",
-          "type": "json",
-          "required": false
-        },
-        {
-          "name": "answer1",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "answer2",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "answer3",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "answer4",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "answer5",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "answer6",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "answer7",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "answer8",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "answer9",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "truefalse1",
+          "name": "antivirus",
           "type": "boolean",
           "required": false
         },
         {
-          "name": "truefalse2",
+          "name": "dlp",
           "type": "boolean",
           "required": false
         },
         {
-          "name": "truefalse3",
+          "name": "endpointdetection",
           "type": "boolean",
           "required": false
         },
         {
-          "name": "datetime1",
-          "type": "datetime",
+          "name": "diskentryptionprimarydisk",
+          "type": "boolean",
           "required": false
         },
         {
-          "name": "datetime2",
-          "type": "datetime",
+          "name": "diskentryptionsecondarydisk",
+          "type": "boolean",
           "required": false
+        }
+      ]
+    },
+    "exceptiontype": {
+      "name": "exceptiontype",
+      "description": "exceptiontype",
+      "baselineattributes": [
+        {
+          "name": "tenant",
+          "type": "string",
+          "required": true
         },
         {
-          "name": "datetime3",
-          "type": "datetime",
-          "required": false
+          "name": "name",
+          "type": "string",
+          "required": true
         },
         {
-          "name": "number1",
-          "type": "int",
+          "name": "description",
+          "type": "string",
           "required": false
+        }
+      ],
+      "additionalattributes": [
+        {
+          "name": "family",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    "grantedexception": {
+      "name": "grantedexception",
+      "description": "grantedexception",
+      "baselineattributes": [
+        {
+          "name": "tenant",
+          "type": "string",
+          "required": true
         },
         {
-          "name": "number2",
-          "type": "int",
-          "required": false
+          "name": "name",
+          "type": "string",
+          "required": true
         },
         {
-          "name": "number3",
-          "type": "int",
+          "name": "description",
+          "type": "string",
           "required": false
+        }
+      ],
+      "additionalattributes": [
+        {
+          "name": "exceptiontype",
+          "type": "reference",
+          "entity": {
+            "name": "exceptiontype",
+            "description": "exceptiontype",
+            "baselineattributes": [
+              {
+                "name": "tenant",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "required": false
+              }
+            ],
+            "additionalattributes": [
+              {
+                "name": "family",
+                "type": "string",
+                "required": true
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "person",
+          "type": "reference",
+          "entity": {
+            "name": "person",
+            "description": "person",
+            "baselineattributes": [
+              {
+                "name": "tenant",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "required": false
+              }
+            ],
+            "additionalattributes": [
+              {
+                "name": "unique_person_id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "displayname",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "email",
+                "type": "string",
+                "required": true
+              }
+            ]
+          },
+          "required": true
         }
       ]
     }
@@ -1246,14 +542,15 @@
       ]
     },
     {
-      "name": "application",
-      "description": "Manage applications",
+      "name": "devicetype",
+      "description": "Manage devicetypes",
       "entity": {
         "type": "record",
-        "model": "application",
-        "objectname": "Application",
+        "model": "devicetype",
+        "objectname": "Devicetype",
         "entity": {
-          "name": "application",
+          "name": "devicetype",
+          "description": "devicetype",
           "baselineattributes": [
             {
               "name": "tenant",
@@ -1273,62 +570,9 @@
           ],
           "additionalattributes": [
             {
-              "name": "key",
+              "name": "family",
               "type": "string",
               "required": true
-            },
-            {
-              "name": "displayname",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "imported_ownername",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "owner",
-              "required": false,
-              "type": "reference",
-              "entity": {
-                "name": "person",
-                "description": "person",
-                "baselineattributes": [
-                  {
-                    "name": "tenant",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "name",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "description",
-                    "type": "string",
-                    "required": false
-                  }
-                ],
-                "additionalattributes": [
-                  {
-                    "name": "unique_person_id",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "displayname",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "email",
-                    "type": "string",
-                    "required": true
-                  }
-                ]
-              }
             }
           ]
         }
@@ -1412,14 +656,15 @@
       ]
     },
     {
-      "name": "campaign",
-      "description": "Manage campaigns",
+      "name": "device",
+      "description": "Manage devices",
       "entity": {
         "type": "record",
-        "model": "campaign",
-        "objectname": "Campaign",
+        "model": "device",
+        "objectname": "Device",
         "entity": {
-          "name": "campaign",
+          "name": "device",
+          "description": "device",
           "baselineattributes": [
             {
               "name": "tenant",
@@ -1435,16 +680,11 @@
               "name": "description",
               "type": "string",
               "required": false
-            },
-            {
-              "name": "url",
-              "type": "string",
-              "required": true
             }
           ],
           "additionalattributes": [
             {
-              "name": "key",
+              "name": "unique_device_id",
               "type": "string",
               "required": true
             },
@@ -1454,12 +694,16 @@
               "required": true
             },
             {
-              "name": "owner",
-              "required": false,
+              "name": "macaddress",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "devicetype",
               "type": "reference",
               "entity": {
-                "name": "person",
-                "description": "person",
+                "name": "devicetype",
+                "description": "devicetype",
                 "baselineattributes": [
                   {
                     "name": "tenant",
@@ -1479,367 +723,37 @@
                 ],
                 "additionalattributes": [
                   {
-                    "name": "unique_person_id",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "displayname",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "email",
+                    "name": "family",
                     "type": "string",
                     "required": true
                   }
                 ]
-              }
-            }
-          ]
-        }
-      },
-      "methods": [
-        {
-          "name": "read",
-          "description": "Read a single item",
-          "parameters": [
-            {
-              "name": "id",
-              "description": "The id of the item",
-              "type": "int",
-              "required": true
-            }
-          ],
-          "returns": {
-            "type": "object"
-          }
-        },
-        {
-          "name": "create",
-          "description": "Create a new item",
-          "parameters": [
-            {
-              "name": "item",
-              "description": "The item to create",
-              "type": "object",
-              "required": true
-            }
-          ],
-          "returns": {
-            "type": "object"
-          }
-        },
-        {
-          "name": "update",
-          "description": "Update an existing item",
-          "parameters": [
-            {
-              "name": "item",
-              "description": "The item to update",
-              "type": "object",
-              "required": true
-            }
-          ],
-          "returns": {
-            "type": "object"
-          }
-        },
-        {
-          "name": "delete",
-          "description": "Delete an existing item",
-          "parameters": [
-            {
-              "name": "id",
-              "description": "The id of the item",
-              "type": "int",
-              "required": true
-            }
-          ],
-          "returns": {
-            "type": "void"
-          }
-        },
-        {
-          "name": "search",
-          "description": "Search for items",
-          "parameters": [
-            {
-              "name": "query",
-              "description": "The search query",
-              "type": "string",
-              "required": true
-            }
-          ],
-          "returns": {
-            "type": "page"
-          }
-        }
-      ]
-    },
-    {
-      "name": "survey",
-      "description": "Manage surveys",
-      "entity": {
-        "type": "record",
-        "model": "survey",
-        "objectname": "Survey",
-        "entity": {
-          "name": "survey",
-          "baselineattributes": [
-            {
-              "name": "tenant",
-              "type": "string",
+              },
               "required": true
             },
             {
-              "name": "name",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "description",
-              "type": "string",
+              "name": "antivirus",
+              "type": "boolean",
               "required": false
             },
             {
-              "name": "url",
-              "type": "string",
-              "required": true
-            }
-          ],
-          "additionalattributes": [
-            {
-              "name": "key",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "displayname",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "owner",
-              "required": false,
-              "type": "reference",
-              "entity": {
-                "name": "person",
-                "description": "person",
-                "baselineattributes": [
-                  {
-                    "name": "tenant",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "name",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "description",
-                    "type": "string",
-                    "required": false
-                  }
-                ],
-                "additionalattributes": [
-                  {
-                    "name": "unique_person_id",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "displayname",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "email",
-                    "type": "string",
-                    "required": true
-                  }
-                ]
-              }
-            },
-            {
-              "name": "campaign",
-              "required": false,
-              "type": "reference",
-              "entity": {
-                "name": "campaign",
-                "baselineattributes": [
-                  {
-                    "name": "tenant",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "name",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "description",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "url",
-                    "type": "string",
-                    "required": true
-                  }
-                ],
-                "additionalattributes": [
-                  {
-                    "name": "key",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "displayname",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "owner",
-                    "required": false,
-                    "type": "reference",
-                    "entity": {
-                      "name": "person",
-                      "description": "person",
-                      "baselineattributes": [
-                        {
-                          "name": "tenant",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "name",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "description",
-                          "type": "string",
-                          "required": false
-                        }
-                      ],
-                      "additionalattributes": [
-                        {
-                          "name": "unique_person_id",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "displayname",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "email",
-                          "type": "string",
-                          "required": true
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "name": "question1",
-              "type": "string",
+              "name": "dlp",
+              "type": "boolean",
               "required": false
             },
             {
-              "name": "question2",
-              "type": "string",
+              "name": "endpointdetection",
+              "type": "boolean",
               "required": false
             },
             {
-              "name": "question3",
-              "type": "string",
+              "name": "diskentryptionprimarydisk",
+              "type": "boolean",
               "required": false
             },
             {
-              "name": "question4",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question5",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question6",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question7",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question8",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question9",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "truefalse1",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "truefalse2",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "truefalse3",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "datetime1",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "datetime2",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "datetime3",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "number1",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "number2",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "number3",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "questions",
-              "type": "json",
+              "name": "diskentryptionsecondarydisk",
+              "type": "boolean",
               "required": false
             }
           ]
@@ -1924,14 +838,15 @@
       ]
     },
     {
-      "name": "surveyresponse",
-      "description": "Manage survey responses",
+      "name": "exceptiontype",
+      "description": "Manage exceptiontypes",
       "entity": {
         "type": "record",
-        "model": "surveyresponse",
-        "objectname": "SurveyResponse",
+        "model": "exceptiontype",
+        "objectname": "Exceptiontype",
         "entity": {
-          "name": "surveyresponse",
+          "name": "exceptiontype",
+          "description": "exceptiontype",
           "baselineattributes": [
             {
               "name": "tenant",
@@ -1947,521 +862,13 @@
               "name": "description",
               "type": "string",
               "required": false
-            },
-            {
-              "name": "url",
-              "type": "string",
-              "required": true
             }
           ],
           "additionalattributes": [
             {
-              "name": "responsedate",
-              "type": "datetime",
-              "required": false
-            },
-            {
-              "name": "key",
+              "name": "family",
               "type": "string",
               "required": true
-            },
-            {
-              "name": "displayname",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "respondent",
-              "required": false,
-              "type": "reference",
-              "entity": {
-                "name": "person",
-                "description": "person",
-                "baselineattributes": [
-                  {
-                    "name": "tenant",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "name",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "description",
-                    "type": "string",
-                    "required": false
-                  }
-                ],
-                "additionalattributes": [
-                  {
-                    "name": "unique_person_id",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "displayname",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "email",
-                    "type": "string",
-                    "required": true
-                  }
-                ]
-              }
-            },
-            {
-              "name": "survey",
-              "required": false,
-              "type": "reference",
-              "entity": {
-                "name": "survey",
-                "baselineattributes": [
-                  {
-                    "name": "tenant",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "name",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "description",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "url",
-                    "type": "string",
-                    "required": true
-                  }
-                ],
-                "additionalattributes": [
-                  {
-                    "name": "key",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "displayname",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "owner",
-                    "required": false,
-                    "type": "reference",
-                    "entity": {
-                      "name": "person",
-                      "description": "person",
-                      "baselineattributes": [
-                        {
-                          "name": "tenant",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "name",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "description",
-                          "type": "string",
-                          "required": false
-                        }
-                      ],
-                      "additionalattributes": [
-                        {
-                          "name": "unique_person_id",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "displayname",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "email",
-                          "type": "string",
-                          "required": true
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "name": "campaign",
-                    "required": false,
-                    "type": "reference",
-                    "entity": {
-                      "name": "campaign",
-                      "baselineattributes": [
-                        {
-                          "name": "tenant",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "name",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "description",
-                          "type": "string",
-                          "required": false
-                        },
-                        {
-                          "name": "url",
-                          "type": "string",
-                          "required": true
-                        }
-                      ],
-                      "additionalattributes": [
-                        {
-                          "name": "key",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "displayname",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "owner",
-                          "required": false,
-                          "type": "reference",
-                          "entity": {
-                            "name": "person",
-                            "description": "person",
-                            "baselineattributes": [
-                              {
-                                "name": "tenant",
-                                "type": "string",
-                                "required": true
-                              },
-                              {
-                                "name": "name",
-                                "type": "string",
-                                "required": true
-                              },
-                              {
-                                "name": "description",
-                                "type": "string",
-                                "required": false
-                              }
-                            ],
-                            "additionalattributes": [
-                              {
-                                "name": "unique_person_id",
-                                "type": "string",
-                                "required": true
-                              },
-                              {
-                                "name": "displayname",
-                                "type": "string",
-                                "required": true
-                              },
-                              {
-                                "name": "email",
-                                "type": "string",
-                                "required": true
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "name": "question1",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "question2",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "question3",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "question4",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "question5",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "question6",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "question7",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "question8",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "question9",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "truefalse1",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "truefalse2",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "truefalse3",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "datetime1",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "datetime2",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "datetime3",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "number1",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "number2",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "number3",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "questions",
-                    "type": "json",
-                    "required": false
-                  }
-                ]
-              }
-            },
-            {
-              "name": "application",
-              "required": false,
-              "type": "reference",
-              "entity": {
-                "name": "application",
-                "baselineattributes": [
-                  {
-                    "name": "tenant",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "name",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "description",
-                    "type": "string",
-                    "required": false
-                  }
-                ],
-                "additionalattributes": [
-                  {
-                    "name": "key",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "displayname",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "imported_ownername",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "owner",
-                    "required": false,
-                    "type": "reference",
-                    "entity": {
-                      "name": "person",
-                      "description": "person",
-                      "baselineattributes": [
-                        {
-                          "name": "tenant",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "name",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "description",
-                          "type": "string",
-                          "required": false
-                        }
-                      ],
-                      "additionalattributes": [
-                        {
-                          "name": "unique_person_id",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "displayname",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "email",
-                          "type": "string",
-                          "required": true
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "name": "questions",
-              "type": "json",
-              "required": false
-            },
-            {
-              "name": "answers",
-              "type": "json",
-              "required": false
-            },
-            {
-              "name": "answer1",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "answer2",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "answer3",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "answer4",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "answer5",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "answer6",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "answer7",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "answer8",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "answer9",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "truefalse1",
-              "type": "boolean",
-              "required": false
-            },
-            {
-              "name": "truefalse2",
-              "type": "boolean",
-              "required": false
-            },
-            {
-              "name": "truefalse3",
-              "type": "boolean",
-              "required": false
-            },
-            {
-              "name": "datetime1",
-              "type": "datetime",
-              "required": false
-            },
-            {
-              "name": "datetime2",
-              "type": "datetime",
-              "required": false
-            },
-            {
-              "name": "datetime3",
-              "type": "datetime",
-              "required": false
-            },
-            {
-              "name": "number1",
-              "type": "int",
-              "required": false
-            },
-            {
-              "name": "number2",
-              "type": "int",
-              "required": false
-            },
-            {
-              "name": "number3",
-              "type": "int",
-              "required": false
             }
           ]
         }
@@ -2543,67 +950,17 @@
           }
         }
       ]
-    }
-  ],
-  "icons": {
-    "ChevronLeft": {
-      "name": "ChevronLeft"
     },
-    "ChevronRight": {
-      "name": "ChevronRight"
-    },
-    "Copy": {
-      "name": "Copy"
-    },
-    "CreditCard": {
-      "name": "CreditCard"
-    },
-    "File": {
-      "name": "File"
-    },
-    "Home": {
-      "name": "Home"
-    },
-    "LineChart": {
-      "name": "LineChart"
-    },
-    "ListFilter": {
-      "name": "ListFilter"
-    },
-    "MoreVertical": {
-      "name": "MoreVertical"
-    },
-    "Package": {
-      "name": "Package"
-    },
-    "Package2": {
-      "name": "Package2"
-    },
-    "PanelLeft": {
-      "name": "PanelLeft"
-    },
-    "Search": {
-      "name": "Search"
-    },
-    "Settings": {
-      "name": "Settings"
-    },
-    "ShoppingCart": {
-      "name": "ShoppingCart"
-    },
-    "Truck": {
-      "name": "Truck"
-    },
-    "Users2": {
-      "name": "Users2"
-    }
-  },
-  "components": {
-    "listowners": {
-      "object": {
+    {
+      "name": "grantedexception",
+      "description": "Manage grantedexception",
+      "entity": {
+        "type": "record",
+        "model": "grantedexception",
+        "objectname": "Grantedexception",
         "entity": {
-          "name": "person",
-          "description": "person",
+          "name": "grantedexception",
+          "description": "grantedexception",
           "baselineattributes": [
             {
               "name": "tenant",
@@ -2623,416 +980,11 @@
           ],
           "additionalattributes": [
             {
-              "name": "unique_person_id",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "displayname",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "email",
-              "type": "string",
-              "required": true
-            }
-          ]
-        },
-        "relations": [
-          {
-            "name": "applications",
-            "entity": {
-              "name": "application",
-              "baselineattributes": [
-                {
-                  "name": "tenant",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "name",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "description",
-                  "type": "string",
-                  "required": false
-                }
-              ],
-              "additionalattributes": [
-                {
-                  "name": "key",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "displayname",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "imported_ownername",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "owner",
-                  "required": false,
-                  "type": "reference",
-                  "entity": {
-                    "name": "person",
-                    "description": "person",
-                    "baselineattributes": [
-                      {
-                        "name": "tenant",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "name",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "description",
-                        "type": "string",
-                        "required": false
-                      }
-                    ],
-                    "additionalattributes": [
-                      {
-                        "name": "unique_person_id",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "displayname",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "email",
-                        "type": "string",
-                        "required": true
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "name": "surveys",
-            "entity": {
-              "name": "survey",
-              "baselineattributes": [
-                {
-                  "name": "tenant",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "name",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "description",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "url",
-                  "type": "string",
-                  "required": true
-                }
-              ],
-              "additionalattributes": [
-                {
-                  "name": "key",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "displayname",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "owner",
-                  "required": false,
-                  "type": "reference",
-                  "entity": {
-                    "name": "person",
-                    "description": "person",
-                    "baselineattributes": [
-                      {
-                        "name": "tenant",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "name",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "description",
-                        "type": "string",
-                        "required": false
-                      }
-                    ],
-                    "additionalattributes": [
-                      {
-                        "name": "unique_person_id",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "displayname",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "email",
-                        "type": "string",
-                        "required": true
-                      }
-                    ]
-                  }
-                },
-                {
-                  "name": "campaign",
-                  "required": false,
-                  "type": "reference",
-                  "entity": {
-                    "name": "campaign",
-                    "baselineattributes": [
-                      {
-                        "name": "tenant",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "name",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "description",
-                        "type": "string",
-                        "required": false
-                      },
-                      {
-                        "name": "url",
-                        "type": "string",
-                        "required": true
-                      }
-                    ],
-                    "additionalattributes": [
-                      {
-                        "name": "key",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "displayname",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "owner",
-                        "required": false,
-                        "type": "reference",
-                        "entity": {
-                          "name": "person",
-                          "description": "person",
-                          "baselineattributes": [
-                            {
-                              "name": "tenant",
-                              "type": "string",
-                              "required": true
-                            },
-                            {
-                              "name": "name",
-                              "type": "string",
-                              "required": true
-                            },
-                            {
-                              "name": "description",
-                              "type": "string",
-                              "required": false
-                            }
-                          ],
-                          "additionalattributes": [
-                            {
-                              "name": "unique_person_id",
-                              "type": "string",
-                              "required": true
-                            },
-                            {
-                              "name": "displayname",
-                              "type": "string",
-                              "required": true
-                            },
-                            {
-                              "name": "email",
-                              "type": "string",
-                              "required": true
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "name": "question1",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "question2",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "question3",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "question4",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "question5",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "question6",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "question7",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "question8",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "question9",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "truefalse1",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "truefalse2",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "truefalse3",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "datetime1",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "datetime2",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "datetime3",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "number1",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "number2",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "number3",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "questions",
-                  "type": "json",
-                  "required": false
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    "listcampaigns": {
-      "object": {
-        "entity": {
-          "name": "campaign",
-          "baselineattributes": [
-            {
-              "name": "tenant",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "name",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "description",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "url",
-              "type": "string",
-              "required": true
-            }
-          ],
-          "additionalattributes": [
-            {
-              "name": "key",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "displayname",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "owner",
-              "required": false,
+              "name": "exceptiontype",
               "type": "reference",
               "entity": {
-                "name": "person",
-                "description": "person",
+                "name": "exceptiontype",
+                "description": "exceptiontype",
                 "baselineattributes": [
                   {
                     "name": "tenant",
@@ -3052,110 +1004,16 @@
                 ],
                 "additionalattributes": [
                   {
-                    "name": "unique_person_id",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "displayname",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "email",
+                    "name": "family",
                     "type": "string",
                     "required": true
                   }
                 ]
-              }
-            }
-          ]
-        },
-        "relations": [
-          {
-            "name": "person",
-            "entity": {
+              },
+              "required": true
+            },
+            {
               "name": "person",
-              "description": "person",
-              "baselineattributes": [
-                {
-                  "name": "tenant",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "name",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "description",
-                  "type": "string",
-                  "required": false
-                }
-              ],
-              "additionalattributes": [
-                {
-                  "name": "unique_person_id",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "displayname",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "email",
-                  "type": "string",
-                  "required": true
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    "listsurveys": {
-      "object": {
-        "entity": {
-          "name": "survey",
-          "baselineattributes": [
-            {
-              "name": "tenant",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "name",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "description",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "url",
-              "type": "string",
-              "required": true
-            }
-          ],
-          "additionalattributes": [
-            {
-              "name": "key",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "displayname",
-              "type": "string",
-              "required": true
-            },
-            {
-              "name": "owner",
-              "required": false,
               "type": "reference",
               "entity": {
                 "name": "person",
@@ -3194,317 +1052,89 @@
                     "required": true
                   }
                 ]
-              }
-            },
-            {
-              "name": "campaign",
-              "required": false,
-              "type": "reference",
-              "entity": {
-                "name": "campaign",
-                "baselineattributes": [
-                  {
-                    "name": "tenant",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "name",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "description",
-                    "type": "string",
-                    "required": false
-                  },
-                  {
-                    "name": "url",
-                    "type": "string",
-                    "required": true
-                  }
-                ],
-                "additionalattributes": [
-                  {
-                    "name": "key",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "displayname",
-                    "type": "string",
-                    "required": true
-                  },
-                  {
-                    "name": "owner",
-                    "required": false,
-                    "type": "reference",
-                    "entity": {
-                      "name": "person",
-                      "description": "person",
-                      "baselineattributes": [
-                        {
-                          "name": "tenant",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "name",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "description",
-                          "type": "string",
-                          "required": false
-                        }
-                      ],
-                      "additionalattributes": [
-                        {
-                          "name": "unique_person_id",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "displayname",
-                          "type": "string",
-                          "required": true
-                        },
-                        {
-                          "name": "email",
-                          "type": "string",
-                          "required": true
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "name": "question1",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question2",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question3",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question4",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question5",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question6",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question7",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question8",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "question9",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "truefalse1",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "truefalse2",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "truefalse3",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "datetime1",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "datetime2",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "datetime3",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "number1",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "number2",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "number3",
-              "type": "string",
-              "required": false
-            },
-            {
-              "name": "questions",
-              "type": "json",
-              "required": false
+              },
+              "required": true
             }
           ]
-        },
-        "relations": [
-          {
-            "name": "person",
-            "entity": {
-              "name": "person",
-              "description": "person",
-              "baselineattributes": [
-                {
-                  "name": "tenant",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "name",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "description",
-                  "type": "string",
-                  "required": false
-                }
-              ],
-              "additionalattributes": [
-                {
-                  "name": "unique_person_id",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "displayname",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "email",
-                  "type": "string",
-                  "required": true
-                }
-              ]
+        }
+      },
+      "methods": [
+        {
+          "name": "read",
+          "description": "Read a single item",
+          "parameters": [
+            {
+              "name": "id",
+              "description": "The id of the item",
+              "type": "int",
+              "required": true
             }
-          },
-          {
-            "name": "campaign",
-            "entity": {
-              "name": "campaign",
-              "baselineattributes": [
-                {
-                  "name": "tenant",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "name",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "description",
-                  "type": "string",
-                  "required": false
-                },
-                {
-                  "name": "url",
-                  "type": "string",
-                  "required": true
-                }
-              ],
-              "additionalattributes": [
-                {
-                  "name": "key",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "displayname",
-                  "type": "string",
-                  "required": true
-                },
-                {
-                  "name": "owner",
-                  "required": false,
-                  "type": "reference",
-                  "entity": {
-                    "name": "person",
-                    "description": "person",
-                    "baselineattributes": [
-                      {
-                        "name": "tenant",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "name",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "description",
-                        "type": "string",
-                        "required": false
-                      }
-                    ],
-                    "additionalattributes": [
-                      {
-                        "name": "unique_person_id",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "displayname",
-                        "type": "string",
-                        "required": true
-                      },
-                      {
-                        "name": "email",
-                        "type": "string",
-                        "required": true
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
+          ],
+          "returns": {
+            "type": "object"
           }
-        ]
-      }
+        },
+        {
+          "name": "create",
+          "description": "Create a new item",
+          "parameters": [
+            {
+              "name": "item",
+              "description": "The item to create",
+              "type": "object",
+              "required": true
+            }
+          ],
+          "returns": {
+            "type": "object"
+          }
+        },
+        {
+          "name": "update",
+          "description": "Update an existing item",
+          "parameters": [
+            {
+              "name": "item",
+              "description": "The item to update",
+              "type": "object",
+              "required": true
+            }
+          ],
+          "returns": {
+            "type": "object"
+          }
+        },
+        {
+          "name": "delete",
+          "description": "Delete an existing item",
+          "parameters": [
+            {
+              "name": "id",
+              "description": "The id of the item",
+              "type": "int",
+              "required": true
+            }
+          ],
+          "returns": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "search",
+          "description": "Search for items",
+          "parameters": [
+            {
+              "name": "query",
+              "description": "The search query",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "returns": {
+            "type": "page"
+          }
+        }
+      ]
     }
-  }
+  ]
 }

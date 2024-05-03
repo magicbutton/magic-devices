@@ -6,20 +6,20 @@ keep: false
 ---
 */
 //generator:  noma3.search.v2
-package person
+package grantedexception
 
 import (
     "log"
 
     "github.com/magicbutton/magic-devices/applogic"
     "github.com/magicbutton/magic-devices/database"
-    "github.com/magicbutton/magic-devices/services/models/personmodel"
+    "github.com/magicbutton/magic-devices/services/models/grantedexceptionmodel"
     . "github.com/magicbutton/magic-devices/utils"
 )
 
-func PersonSearch(query string) (*Page[personmodel.Person], error) {
-    log.Println("Calling Personsearch")
+func GrantedexceptionSearch(query string) (*Page[grantedexceptionmodel.Grantedexception], error) {
+    log.Println("Calling Grantedexceptionsearch")
 
-    return applogic.Search[database.Person, personmodel.Person]("name", query, applogic.MapPersonOutgoing)
+    return applogic.Search[database.Grantedexception, grantedexceptionmodel.Grantedexception]("name", query, applogic.MapGrantedexceptionOutgoing)
 
 }

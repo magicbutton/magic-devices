@@ -6,20 +6,20 @@ keep: false
 ---
 */
 //generator:  noma3.search.v2
-package person
+package device
 
 import (
     "log"
 
     "github.com/magicbutton/magic-devices/applogic"
     "github.com/magicbutton/magic-devices/database"
-    "github.com/magicbutton/magic-devices/services/models/personmodel"
+    "github.com/magicbutton/magic-devices/services/models/devicemodel"
     . "github.com/magicbutton/magic-devices/utils"
 )
 
-func PersonSearch(query string) (*Page[personmodel.Person], error) {
-    log.Println("Calling Personsearch")
+func DeviceSearch(query string) (*Page[devicemodel.Device], error) {
+    log.Println("Calling Devicesearch")
 
-    return applogic.Search[database.Person, personmodel.Person]("name", query, applogic.MapPersonOutgoing)
+    return applogic.Search[database.Device, devicemodel.Device]("name", query, applogic.MapDeviceOutgoing)
 
 }
