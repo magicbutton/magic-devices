@@ -13,9 +13,10 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/nats-io/nats.go/micro"
+
 	"github.com/magicbutton/magic-devices/services/endpoints/app"
 	. "github.com/magicbutton/magic-devices/utils"
-	"github.com/nats-io/nats.go/micro"
 )
 
 func HandleAppRequests(req micro.Request) {

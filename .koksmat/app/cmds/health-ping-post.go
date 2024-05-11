@@ -17,7 +17,7 @@ import (
 
 func HealthPingPost(ctx context.Context, args []string) (*string, error) {
 
-	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "00-health", "10-ping.ps1", "", "-pong", args[0])
+	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "90-health", "10-ping.ps1", "", "-pong", args[0])
 	if pwsherr != nil {
 		return nil, pwsherr
 	}

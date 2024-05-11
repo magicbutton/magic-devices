@@ -3,7 +3,7 @@
 // -------------------------------------------------------------------
 /*
 ---
-title: App deploy to production
+title: Import Sheet Tabelle
 ---
 */
 package endpoints
@@ -16,12 +16,12 @@ import (
 	"github.com/magicbutton/magic-devices/execution"
 )
 
-func ProvisionAppdeployproductionPost() usecase.Interactor {
+func ImportTabellePost() usecase.Interactor {
 	type Request struct {
 	}
 	u := usecase.NewInteractor(func(ctx context.Context, input Request, output *string) error {
 
-		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "60-provision", "20-app-job.ps1", "")
+		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "20-import", "tabelle.ps1", "")
 		if err != nil {
 			return err
 		}
@@ -29,8 +29,8 @@ func ProvisionAppdeployproductionPost() usecase.Interactor {
 		return err
 
 	})
-	u.SetTitle("App deploy to production")
+	u.SetTitle("Import Sheet Tabelle")
 	// u.SetExpectedErrors(status.InvalidArgument)
-	u.SetTags("Provision")
+	u.SetTags("Import")
 	return u
 }

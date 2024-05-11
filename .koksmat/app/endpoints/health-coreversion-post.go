@@ -21,7 +21,7 @@ func HealthCoreversionPost() usecase.Interactor {
 	}
 	u := usecase.NewInteractor(func(ctx context.Context, input Request, output *string) error {
 
-		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "00-health", "20-coreversion.ps1", "")
+		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "90-health", "20-coreversion.ps1", "")
 		if err != nil {
 			return err
 		}

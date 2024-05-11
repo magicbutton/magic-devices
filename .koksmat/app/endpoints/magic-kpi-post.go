@@ -3,7 +3,7 @@
 // -------------------------------------------------------------------
 /*
 ---
-title: Web deploy to Test
+title: Process KPI
 ---
 */
 package endpoints
@@ -16,12 +16,12 @@ import (
 	"github.com/magicbutton/magic-devices/execution"
 )
 
-func ProvisionWebdeploytestPost() usecase.Interactor {
+func MagicKpiPost() usecase.Interactor {
 	type Request struct {
 	}
 	u := usecase.NewInteractor(func(ctx context.Context, input Request, output *string) error {
 
-		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "60-provision", "11-web-test.ps1", "")
+		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "00-magic", "10-process-kpi.ps1", "")
 		if err != nil {
 			return err
 		}
@@ -29,8 +29,8 @@ func ProvisionWebdeploytestPost() usecase.Interactor {
 		return err
 
 	})
-	u.SetTitle("Web deploy to Test")
+	u.SetTitle("Process KPI")
 	// u.SetExpectedErrors(status.InvalidArgument)
-	u.SetTags("Provision")
+	u.SetTags("Magic")
 	return u
 }

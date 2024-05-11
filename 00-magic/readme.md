@@ -1,0 +1,4 @@
+---
+title: Magic
+tag: magic
+---

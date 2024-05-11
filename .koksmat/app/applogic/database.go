@@ -58,6 +58,7 @@ func Search[DB interface{}, DOC interface{}](fieldname string, query string, map
 
 	return &page, nil
 }
+
 func Select[DB interface{}, DOC interface{}](query string, mapper func(DB) DOC, args ...interface{}) (*[]DOC, error) {
 
 	result, err := dbhelpers.SelectWhere[DB](query, args...)
@@ -73,6 +74,7 @@ func Select[DB interface{}, DOC interface{}](query string, mapper func(DB) DOC, 
 
 	return &items, nil
 }
+
 func SelectDistinct[DB interface{}, DOC interface{}](query string, mapper func(DB) DOC, columns []string, args ...interface{}) (*[]DOC, error) {
 
 	result, err := dbhelpers.SelectDistinct[DB](query, columns, args...)
@@ -100,6 +102,7 @@ func Create[DB interface{}, DOC interface{}](item DOC, mapperIncoming func(DOC) 
 	return &createdItem, nil
 
 }
+
 func Read[DB interface{}, DOC interface{}](id int, mapper func(DB) DOC) (*DOC, error) {
 	dbItem, err := dbhelpers.SelectById[DB](id)
 	if err != nil {

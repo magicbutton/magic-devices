@@ -3,27 +3,21 @@
 // -------------------------------------------------------------------
 /*
 ---
-title: Parse Groups
+title: Import Sheet Intune
 ---
 */
 package cmds
 
 import (
 	"context"
-	"os"
-	"path"
 
 	"github.com/magicbutton/magic-devices/execution"
 	"github.com/magicbutton/magic-devices/utils"
 )
 
-func AnalyseParseGroupsPost(ctx context.Context, body []byte, args []string) (*string, error) {
-	inputErr := os.WriteFile(path.Join(utils.WorkDir("magic-devices"), "InfocastGroups.json"), body, 0644)
-	if inputErr != nil {
-		return nil, inputErr
-	}
+func ImportIntunePost(ctx context.Context, args []string) (*string, error) {
 
-	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "30-analyse", "10-parse-groups.ps1", "")
+	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "20-import", "intune.ps1", "")
 	if pwsherr != nil {
 		return nil, pwsherr
 	}

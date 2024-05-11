@@ -11,7 +11,6 @@ package exceptionsmodel
 import (
 	"encoding/json"
 	"time"
-	// "github.com/magicbutton/magic-devices/database/databasetypes"
 )
 
 func UnmarshalException(data []byte) (Exception, error) {

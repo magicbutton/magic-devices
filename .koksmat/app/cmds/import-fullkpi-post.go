@@ -3,7 +3,7 @@
 // -------------------------------------------------------------------
 /*
 ---
-title: Web deploy to Test
+title: Import Sheet FullKpi
 ---
 */
 package cmds
@@ -15,9 +15,9 @@ import (
 	"github.com/magicbutton/magic-devices/utils"
 )
 
-func ProvisionWebdeploytestPost(ctx context.Context, args []string) (*string, error) {
+func ImportFullkpiPost(ctx context.Context, args []string) (*string, error) {
 
-	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "60-provision", "11-web-test.ps1", "")
+	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "20-import", "fullkpi.ps1", "")
 	if pwsherr != nil {
 		return nil, pwsherr
 	}

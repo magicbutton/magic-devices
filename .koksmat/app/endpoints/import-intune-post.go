@@ -3,7 +3,7 @@
 // -------------------------------------------------------------------
 /*
 ---
-title: Web deploy to production
+title: Import Sheet Intune
 ---
 */
 package endpoints
@@ -16,12 +16,12 @@ import (
 	"github.com/magicbutton/magic-devices/execution"
 )
 
-func ProvisionWebdeployproductionPost() usecase.Interactor {
+func ImportIntunePost() usecase.Interactor {
 	type Request struct {
 	}
 	u := usecase.NewInteractor(func(ctx context.Context, input Request, output *string) error {
 
-		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "60-provision", "10-web.ps1", "")
+		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "20-import", "intune.ps1", "")
 		if err != nil {
 			return err
 		}
@@ -29,8 +29,8 @@ func ProvisionWebdeployproductionPost() usecase.Interactor {
 		return err
 
 	})
-	u.SetTitle("Web deploy to production")
+	u.SetTitle("Import Sheet Intune")
 	// u.SetExpectedErrors(status.InvalidArgument)
-	u.SetTags("Provision")
+	u.SetTags("Import")
 	return u
 }

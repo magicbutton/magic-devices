@@ -102,6 +102,7 @@ func DeleteById[T interface{}](id int) error {
 	return nil
 
 }
+
 func Update[T interface{}](data T) error {
 
 	ctx := context.Background()

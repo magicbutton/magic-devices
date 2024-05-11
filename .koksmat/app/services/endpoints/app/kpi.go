@@ -10,37 +10,14 @@ package app
 
 // noma2
 import (
-	"context"
 	"fmt"
 	"log"
 
-	"github.com/uptrace/bun"
-
 	"github.com/magicbutton/magic-devices/services/endpoints/person"
 	"github.com/magicbutton/magic-devices/services/models"
-	"github.com/magicbutton/magic-devices/utils"
 )
 
-type Count struct {
-	bun.BaseModel `bun:"table:jobs,alias:j"`
-
-	Count int `json:"count"`
-}
-
-func GetCount(sql string) int {
-	ctx := context.Background()
-	count := []Count{}
-	rows, err := utils.Db.QueryContext(ctx, sql)
-	if err != nil {
-		return -1
-	}
-
-	err = utils.Db.ScanRows(ctx, rows, &count)
-
-	return count[0].Count
-}
-
-func GlobalDashboard(email string) (*models.Dashboard, error) {
+func GetKPI(email string) (*models.Dashboard, error) {
 	var person_id int = -1
 	var numberOfAppsOwned int = 0
 	var numberOfSurveyResponses int = 0

@@ -3,7 +3,7 @@
 // -------------------------------------------------------------------
 /*
 ---
-title: Web deploy to production
+title: Process KPI
 ---
 */
 package cmds
@@ -15,9 +15,9 @@ import (
 	"github.com/magicbutton/magic-devices/utils"
 )
 
-func ProvisionWebdeployproductionPost(ctx context.Context, args []string) (*string, error) {
+func MagicKpiPost(ctx context.Context, args []string) (*string, error) {
 
-	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "60-provision", "10-web.ps1", "")
+	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "00-magic", "10-process-kpi.ps1", "")
 	if pwsherr != nil {
 		return nil, pwsherr
 	}

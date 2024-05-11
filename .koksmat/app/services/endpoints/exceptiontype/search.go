@@ -9,17 +9,17 @@ keep: false
 package exceptiontype
 
 import (
-    "log"
+	"log"
 
-    "github.com/magicbutton/magic-devices/applogic"
-    "github.com/magicbutton/magic-devices/database"
-    "github.com/magicbutton/magic-devices/services/models/exceptiontypemodel"
-    . "github.com/magicbutton/magic-devices/utils"
+	"github.com/magicbutton/magic-devices/applogic"
+	"github.com/magicbutton/magic-devices/database"
+	"github.com/magicbutton/magic-devices/services/models/exceptiontypemodel"
+	. "github.com/magicbutton/magic-devices/utils"
 )
 
 func ExceptiontypeSearch(query string) (*Page[exceptiontypemodel.Exceptiontype], error) {
-    log.Println("Calling Exceptiontypesearch")
+	log.Println("Calling Exceptiontypesearch")
 
-    return applogic.Search[database.Exceptiontype, exceptiontypemodel.Exceptiontype]("name", query, applogic.MapExceptiontypeOutgoing)
+	return applogic.Search[database.Exceptiontype, exceptiontypemodel.Exceptiontype]("name", query, applogic.MapExceptiontypeOutgoing)
 
 }

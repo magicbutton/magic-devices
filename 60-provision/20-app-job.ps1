@@ -39,11 +39,11 @@ function env($name, $value ) {
 
 
 
-# $envs += env "PNPAPPID" $env:PNPAPPID
-# $envs += env "PNPTENANTID" $env:PNPTENANTID
-# $envs += env "PNPCERTIFICATE" $env:PNPCERTIFICATE
-# $envs += env "PNPSITE" $env:PNPSITE
-# $envs += env "SITEURL" $env:SITEURL
+$envs += env "PNPAPPID" $env:PNPAPPID
+$envs += env "PNPTENANTID" $env:PNPTENANTID
+$envs += env "PNPCERTIFICATE" $env:PNPCERTIFICATE
+$envs += env "PNPSITE" $env:PNPSITE
+$envs += env "SITEURL" $env:SITEURL
 $envs += env "NATS" "nats://nats:4222"
 $envs += env "POSTGRES_DB" $env:POSTGRES_DB
 $configEnv = ""
@@ -64,18 +64,62 @@ $image = "$($imagename)-app:$($version)"
 
 $config = @"
 apiVersion: apps/v1
-kind: Deployment
+kind: Cronjob
 metadata:
-  name: $appname-app
+  name: $appname-job
 spec:
-  selector:
-    matchLabels:
-      app: $appname-app
+  schedule: '* 3 * * *'
+  concurrencyPolicy: Allow
+  suspend: false
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      parallelism: 1
+      completions: 1
+      backoffLimit: 3
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: $appname-job
+        spec:
+
+          containers:
+            - name: $appname-app
+              image: $image
+              command: [$appname]
+              args: ["magic","kpi"]               
+              env:
+$configEnv                           
+              
+              resources: {}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              imagePullPolicy: IfNotPresent
+          restartPolicy: Never
+          terminationGracePeriodSeconds: 30
+          dnsPolicy: ClusterFirst
+          securityContext: {}
+          schedulerName: default-scheduler
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+
+
+
+
+
+
+
+
+
+matchLabels:
+      app: $appname-job
   replicas: 1
   template:
     metadata:
       labels:
-        app: $appname-app
+        app: $appname-job
     spec: 
       containers:
       - name: $appname-app

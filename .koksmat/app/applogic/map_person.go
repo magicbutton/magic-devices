@@ -9,8 +9,6 @@ keep: true
 package applogic
 
 import (
-	//"encoding/json"
-	//"time"
 	"github.com/magicbutton/magic-devices/database"
 	"github.com/magicbutton/magic-devices/services/models/personmodel"
 )
