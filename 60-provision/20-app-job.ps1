@@ -1,6 +1,6 @@
 <#---
-title: App deploy to production
-tag: appdeployproduction
+title: Job deploy to production
+tag: jobdeployproduction
 api: post
 ---
 #>
@@ -50,8 +50,8 @@ $configEnv = ""
 foreach ($item in $envs) {
 
   $configEnv += @"
-          - name: $($item.name)
-            value: $($item.value)
+              - name: $($item.name)
+                value: $($item.value)
 
 "@
 }
@@ -63,8 +63,8 @@ Then we build the deployment file
 $image = "$($imagename)-app:$($version)"
 
 $config = @"
-apiVersion: apps/v1
-kind: Cronjob
+apiVersion: batch/v1
+kind: CronJob
 metadata:
   name: $appname-job
 spec:
@@ -93,10 +93,7 @@ spec:
               env:
 $configEnv                           
               
-              resources: {}
-              terminationMessagePath: /dev/termination-log
-              terminationMessagePolicy: File
-              imagePullPolicy: IfNotPresent
+              
           restartPolicy: Never
           terminationGracePeriodSeconds: 30
           dnsPolicy: ClusterFirst
@@ -104,30 +101,7 @@ $configEnv
           schedulerName: default-scheduler
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
-
-
-
-
-
-
-
-
-
-matchLabels:
-      app: $appname-job
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: $appname-job
-    spec: 
-      containers:
-      - name: $appname-app
-        image: $image
-        command: [$appname]
-        args: ["service","-v"]               
-        env:
-$configEnv                           
+                  
 
 "@
 
