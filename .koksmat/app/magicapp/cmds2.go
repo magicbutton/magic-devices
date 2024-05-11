@@ -29,12 +29,31 @@ func RegisterCmds() {
 	magicCmd.AddCommand(MagicKpiPostCmd)
 
 	utils.RootCmd.AddCommand(magicCmd)
-	importCmd := &cobra.Command{
-		Use:   "import",
-		Short: "Import",
+	downloadCmd := &cobra.Command{
+		Use:   "download",
+		Short: "Download",
 		Long:  `Supporting the "App" domain`,
 	}
-	ImportFullkpiPostCmd := &cobra.Command{
+	DownloadExcelPostCmd := &cobra.Command{
+		Use:   "excel ",
+		Short: "Download excel",
+		Long:  ``,
+		Args:  cobra.MinimumNArgs(0),
+		Run: func(cmd *cobra.Command, args []string) {
+			ctx := cmd.Context()
+
+			cmds.DownloadExcelPost(ctx, args)
+		},
+	}
+	downloadCmd.AddCommand(DownloadExcelPostCmd)
+
+	utils.RootCmd.AddCommand(downloadCmd)
+	extractCmd := &cobra.Command{
+		Use:   "extract",
+		Short: "Extract",
+		Long:  `Supporting the "App" domain`,
+	}
+	ExtractFullkpiPostCmd := &cobra.Command{
 		Use:   "fullkpi ",
 		Short: "Import Sheet FullKpi",
 		Long:  ``,
@@ -42,11 +61,11 @@ func RegisterCmds() {
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := cmd.Context()
 
-			cmds.ImportFullkpiPost(ctx, args)
+			cmds.ExtractFullkpiPost(ctx, args)
 		},
 	}
-	importCmd.AddCommand(ImportFullkpiPostCmd)
-	ImportIntunePostCmd := &cobra.Command{
+	extractCmd.AddCommand(ExtractFullkpiPostCmd)
+	ExtractIntunePostCmd := &cobra.Command{
 		Use:   "intune ",
 		Short: "Import Sheet Intune",
 		Long:  ``,
@@ -54,11 +73,11 @@ func RegisterCmds() {
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := cmd.Context()
 
-			cmds.ImportIntunePost(ctx, args)
+			cmds.ExtractIntunePost(ctx, args)
 		},
 	}
-	importCmd.AddCommand(ImportIntunePostCmd)
-	ImportTabellePostCmd := &cobra.Command{
+	extractCmd.AddCommand(ExtractIntunePostCmd)
+	ExtractTabellePostCmd := &cobra.Command{
 		Use:   "tabelle ",
 		Short: "Import Sheet Tabelle",
 		Long:  ``,
@@ -66,12 +85,81 @@ func RegisterCmds() {
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := cmd.Context()
 
-			cmds.ImportTabellePost(ctx, args)
+			cmds.ExtractTabellePost(ctx, args)
 		},
 	}
-	importCmd.AddCommand(ImportTabellePostCmd)
+	extractCmd.AddCommand(ExtractTabellePostCmd)
+	ExtractDownloadExcelPostCmd := &cobra.Command{
+		Use:   "download-excel ",
+		Short: "Download Excel",
+		Long:  ``,
+		Args:  cobra.MinimumNArgs(0),
+		Run: func(cmd *cobra.Command, args []string) {
+			ctx := cmd.Context()
 
-	utils.RootCmd.AddCommand(importCmd)
+			cmds.ExtractDownloadExcelPost(ctx, args)
+		},
+	}
+	extractCmd.AddCommand(ExtractDownloadExcelPostCmd)
+
+	utils.RootCmd.AddCommand(extractCmd)
+	insertCmd := &cobra.Command{
+		Use:   "insert",
+		Short: "Insert",
+		Long:  `Supporting the "App" domain`,
+	}
+	InsertSqlPostCmd := &cobra.Command{
+		Use:   "sql ",
+		Short: "Insert SQL",
+		Long:  ``,
+		Args:  cobra.MinimumNArgs(0),
+		Run: func(cmd *cobra.Command, args []string) {
+			ctx := cmd.Context()
+
+			cmds.InsertSqlPost(ctx, args)
+		},
+	}
+	insertCmd.AddCommand(InsertSqlPostCmd)
+
+	utils.RootCmd.AddCommand(insertCmd)
+	transformCmd := &cobra.Command{
+		Use:   "transform",
+		Short: "Transform",
+		Long:  `Supporting the "App" domain`,
+	}
+	TransformDownloadExcelPostCmd := &cobra.Command{
+		Use:   "download-excel ",
+		Short: "Download Excel",
+		Long:  ``,
+		Args:  cobra.MinimumNArgs(0),
+		Run: func(cmd *cobra.Command, args []string) {
+			ctx := cmd.Context()
+
+			cmds.TransformDownloadExcelPost(ctx, args)
+		},
+	}
+	transformCmd.AddCommand(TransformDownloadExcelPostCmd)
+
+	utils.RootCmd.AddCommand(transformCmd)
+	loadCmd := &cobra.Command{
+		Use:   "load",
+		Short: "Load",
+		Long:  `Supporting the "App" domain`,
+	}
+	LoadLoadPostCmd := &cobra.Command{
+		Use:   "load ",
+		Short: "Load",
+		Long:  ``,
+		Args:  cobra.MinimumNArgs(0),
+		Run: func(cmd *cobra.Command, args []string) {
+			ctx := cmd.Context()
+
+			cmds.LoadLoadPost(ctx, args)
+		},
+	}
+	loadCmd.AddCommand(LoadLoadPostCmd)
+
+	utils.RootCmd.AddCommand(loadCmd)
 	provisionCmd := &cobra.Command{
 		Use:   "provision",
 		Short: "Provision",

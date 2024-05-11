@@ -1,3 +1,4 @@
+// fodkold
 package magicapp
 
 import (
