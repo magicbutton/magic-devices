@@ -22,7 +22,7 @@ RUN go install
 WORKDIR /kitchens/.koksmat/packages
 COPY ./.koksmat/packages .
 RUN unzip magic-mix.zip
-WORKDIR /kitchens/.koksmat/packages/magic-mix
+WORKDIR /kitchens/.koksmat/packages/magic-mix/.koksmat/app
 RUN go install 
 
 
