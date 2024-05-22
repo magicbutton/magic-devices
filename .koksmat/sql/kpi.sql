@@ -4,9 +4,9 @@ select
        " (column 5)" AS Denominator,
        *
 from
-       exceldevice.tabelle
+       "excelimport"."devicekpi_tables"
 WHERE
-       "Nexi + SIA IT (column 1)" = 'Antivirus installed and monitored'
+       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Antivirus installed and monitored'
 ORDER BY
        id
 LIMIT
@@ -18,9 +18,9 @@ select
        " (column 5)" AS Denominator,
        *
 from
-       exceldevice.tabelle
+       "excelimport"."devicekpi_tables"
 WHERE
-       "Nexi + SIA IT (column 1)" = 'DLP installed and monitored'
+       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'DLP installed and monitored'
 ORDER BY
        id
 LIMIT
@@ -32,9 +32,9 @@ select
        " (column 5)" AS Denominator,
        *
 from
-       exceldevice.tabelle
+       "excelimport"."devicekpi_tables"
 WHERE
-       "Nexi + SIA IT (column 1)" = 'Endpoint Detection & Response installed and monitored'
+       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Endpoint Detection & Response installed and monitored'
 ORDER BY
        id
 LIMIT
@@ -46,9 +46,9 @@ select
        " (column 5)" AS Denominator,
        *
 from
-       exceldevice.tabelle
+       "excelimport"."devicekpi_tables"
 WHERE
-       "Nexi + SIA IT (column 1)" = 'Disk-encryption (Bitlocker)'
+       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Disk-encryption (Bitlocker)'
 ORDER BY
        id
 LIMIT
@@ -60,9 +60,9 @@ select
        " (column 5)" AS Denominator,
        *
 from
-       exceldevice.tabelle
+       "excelimport"."devicekpi_tables"
 WHERE
-       "Nexi + SIA IT (column 1)" = 'Users with USB enablement authorization (with encryption)'
+       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Users with USB enablement authorization (with encryption)'
 ORDER BY
        id
 LIMIT
@@ -88,9 +88,9 @@ select
        " (column 5)" AS Denominator,
        *
 from
-       exceldevice.tabelle
+       "excelimport"."devicekpi_tables"
 WHERE
-       "Nexi + SIA IT (column 1)" = 'Users with USB enablement authorization (without encryption)'
+       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Users with USB enablement authorization (without encryption)'
 ORDER BY
        id
 LIMIT

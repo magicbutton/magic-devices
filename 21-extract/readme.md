@@ -1,4 +1,0 @@
----
-title: Extract
-tag: extract
----
