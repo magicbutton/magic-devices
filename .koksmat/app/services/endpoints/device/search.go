@@ -9,17 +9,17 @@ keep: false
 package device
 
 import (
-    "log"
+	"log"
 
-    "github.com/magicbutton/magic-devices/applogic"
-    "github.com/magicbutton/magic-devices/database"
-    "github.com/magicbutton/magic-devices/services/models/devicemodel"
-    . "github.com/magicbutton/magic-devices/utils"
+	"github.com/magicbutton/magic-devices/applogic"
+	"github.com/magicbutton/magic-devices/database"
+	"github.com/magicbutton/magic-devices/services/models/devicemodel"
+	. "github.com/magicbutton/magic-devices/utils"
 )
 
 func DeviceSearch(query string) (*Page[devicemodel.Device], error) {
-    log.Println("Calling Devicesearch")
+	log.Println("Calling Devicesearch")
 
-    return applogic.Search[database.Device, devicemodel.Device]("name", query, applogic.MapDeviceOutgoing)
+	return applogic.Search[database.Device, devicemodel.Device]("name", query, applogic.MapDeviceOutgoing)
 
 }

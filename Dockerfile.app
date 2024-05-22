@@ -5,6 +5,7 @@ FROM mcr.microsoft.com/powershell
 RUN apt update -y
 RUN apt upgrade -y
 RUN apt install golang-1.21 -y
+RUN apt install unzip -y
 ENV GOBIN="/usr/local/bin"
 ENV PATH="/usr/lib/go-1.21/bin:${PATH}"
 
@@ -19,8 +20,9 @@ WORKDIR /kitchens/magic-devices/.koksmat/app
 
 RUN go install
 WORKDIR /kitchens/.koksmat/packages
-RUN 
-RUN go install github.com/magicbutton/magic-mix@latest
+COPY ./.koksmat/packages .
+RUN unzip magic-mix.zip
+# RUN go install 
 
 
 

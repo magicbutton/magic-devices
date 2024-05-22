@@ -49,6 +49,7 @@ func SelectSQLFromFile(filepath string) (*string, error) {
 	return SelectSQL(text)
 
 }
+
 func ExecuteSQL(sql string) (int64, error) {
 
 	OpenDatabase()

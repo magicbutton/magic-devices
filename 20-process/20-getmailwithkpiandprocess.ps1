@@ -2,7 +2,7 @@
 title: Get KPI report data
 connection: graph, postgres
 api: post
-tag: getkpidata
+tag: devicekpi
 ---
 
 Synopsis

@@ -46,6 +46,7 @@ $envs += env "PNPSITE" $env:PNPSITE
 $envs += env "SITEURL" $env:SITEURL
 $envs += env "NATS" "nats://nats:4222"
 $envs += env "POSTGRES_DB" $env:POSTGRES_DB
+$envs += env "DEVICEKPIBLOB" $env:DEVICEKPIBLOB
 $configEnv = ""
 foreach ($item in $envs) {
 
@@ -89,7 +90,7 @@ spec:
             - name: $appname-app
               image: $image
               command: [$appname]
-              args: ["magic","kpi"]               
+              args: ["run","devicekpi"]               
               env:
 $configEnv                           
               
