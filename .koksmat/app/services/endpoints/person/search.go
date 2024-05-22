@@ -9,17 +9,17 @@ keep: false
 package person
 
 import (
-	"log"
+    "log"
 
-	"github.com/magicbutton/magic-devices/applogic"
-	"github.com/magicbutton/magic-devices/database"
-	"github.com/magicbutton/magic-devices/services/models/personmodel"
-	. "github.com/magicbutton/magic-devices/utils"
+    "github.com/magicbutton/magic-devices/applogic"
+    "github.com/magicbutton/magic-devices/database"
+    "github.com/magicbutton/magic-devices/services/models/personmodel"
+    . "github.com/magicbutton/magic-devices/utils"
 )
 
 func PersonSearch(query string) (*Page[personmodel.Person], error) {
-	log.Println("Calling Personsearch")
+    log.Println("Calling Personsearch")
 
-	return applogic.Search[database.Person, personmodel.Person]("name", query, applogic.MapPersonOutgoing)
+    return applogic.Search[database.Person, personmodel.Person]("name", query, applogic.MapPersonOutgoing)
 
 }

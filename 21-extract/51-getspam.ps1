@@ -1,0 +1,1 @@
+Connect-MgGraph -Scopes SecurityEvents.Read.All -UseDeviceCode

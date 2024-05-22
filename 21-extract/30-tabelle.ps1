@@ -21,7 +21,7 @@ if (-not (Test-Path $workdir)) {
 $workdir = Resolve-Path $workdir
 
 
-$excelfilename = join-path $workdir "devices.xlsx"
+$excelfilename = join-path $workdir "KPISICUREZZA_v1.xlsx"
 $sheetname = "tabelle"
 $namespace = "exceldevice"
 $tablename = "tabelle"

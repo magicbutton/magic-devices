@@ -9,17 +9,17 @@ keep: false
 package grantedexception
 
 import (
-	"log"
+    "log"
 
-	"github.com/magicbutton/magic-devices/applogic"
-	"github.com/magicbutton/magic-devices/database"
-	"github.com/magicbutton/magic-devices/services/models/grantedexceptionmodel"
-	. "github.com/magicbutton/magic-devices/utils"
+    "github.com/magicbutton/magic-devices/applogic"
+    "github.com/magicbutton/magic-devices/database"
+    "github.com/magicbutton/magic-devices/services/models/grantedexceptionmodel"
+    . "github.com/magicbutton/magic-devices/utils"
 )
 
 func GrantedexceptionSearch(query string) (*Page[grantedexceptionmodel.Grantedexception], error) {
-	log.Println("Calling Grantedexceptionsearch")
+    log.Println("Calling Grantedexceptionsearch")
 
-	return applogic.Search[database.Grantedexception, grantedexceptionmodel.Grantedexception]("name", query, applogic.MapGrantedexceptionOutgoing)
+    return applogic.Search[database.Grantedexception, grantedexceptionmodel.Grantedexception]("name", query, applogic.MapGrantedexceptionOutgoing)
 
 }

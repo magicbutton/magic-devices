@@ -9,7 +9,7 @@ keep: false
 
 
 
-CREATE TABLE public.exceptions
+CREATE TABLE public.importdata
 (
     id SERIAL PRIMARY KEY,
     created_at timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -18,19 +18,14 @@ CREATE TABLE public.exceptions
     ,tenant character varying COLLATE pg_catalog."default"  NOT NULL
     ,name character varying COLLATE pg_catalog."default"  NOT NULL
     ,description character varying COLLATE pg_catalog."default" 
-    ,exceptiontype_id int   NOT NULL
-    ,person_id int   NOT NULL
+    ,user_id int   NOT NULL
+    ,data JSONB   NOT NULL
 
 
 );
 
-                ALTER TABLE IF EXISTS public.exceptions
-                ADD FOREIGN KEY (exceptiontype_id)
-                REFERENCES public.exceptiontype (id) MATCH SIMPLE
-                ON UPDATE NO ACTION
-                ON DELETE NO ACTION
-                NOT VALID;                ALTER TABLE IF EXISTS public.exceptions
-                ADD FOREIGN KEY (person_id)
+                ALTER TABLE IF EXISTS public.importdata
+                ADD FOREIGN KEY (user_id)
                 REFERENCES public.person (id) MATCH SIMPLE
                 ON UPDATE NO ACTION
                 ON DELETE NO ACTION
@@ -39,5 +34,5 @@ CREATE TABLE public.exceptions
 
 ---- create above / drop below ----
 
-DROP TABLE public.exceptions;
+DROP TABLE public.importdata;
 

@@ -335,6 +335,77 @@
           "required": true
         }
       ]
+    },
+    "importdata": {
+      "name": "importdata",
+      "description": "Import",
+      "baselineattributes": [
+        {
+          "name": "tenant",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "additionalattributes": [
+        {
+          "name": "user",
+          "type": "reference",
+          "entity": {
+            "name": "person",
+            "description": "person",
+            "baselineattributes": [
+              {
+                "name": "tenant",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "required": false
+              }
+            ],
+            "additionalattributes": [
+              {
+                "name": "unique_person_id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "displayname",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "email",
+                "type": "string",
+                "required": true
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "data",
+          "type": "json",
+          "required": true
+        }
+      ]
     }
   },
   "models": {
@@ -1053,6 +1124,163 @@
                   }
                 ]
               },
+              "required": true
+            }
+          ]
+        }
+      },
+      "methods": [
+        {
+          "name": "read",
+          "description": "Read a single item",
+          "parameters": [
+            {
+              "name": "id",
+              "description": "The id of the item",
+              "type": "int",
+              "required": true
+            }
+          ],
+          "returns": {
+            "type": "object"
+          }
+        },
+        {
+          "name": "create",
+          "description": "Create a new item",
+          "parameters": [
+            {
+              "name": "item",
+              "description": "The item to create",
+              "type": "object",
+              "required": true
+            }
+          ],
+          "returns": {
+            "type": "object"
+          }
+        },
+        {
+          "name": "update",
+          "description": "Update an existing item",
+          "parameters": [
+            {
+              "name": "item",
+              "description": "The item to update",
+              "type": "object",
+              "required": true
+            }
+          ],
+          "returns": {
+            "type": "object"
+          }
+        },
+        {
+          "name": "delete",
+          "description": "Delete an existing item",
+          "parameters": [
+            {
+              "name": "id",
+              "description": "The id of the item",
+              "type": "int",
+              "required": true
+            }
+          ],
+          "returns": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "search",
+          "description": "Search for items",
+          "parameters": [
+            {
+              "name": "query",
+              "description": "The search query",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "returns": {
+            "type": "page"
+          }
+        }
+      ]
+    },
+    {
+      "name": "importdata",
+      "description": "Import data",
+      "entity": {
+        "type": "record",
+        "model": "importdata",
+        "objectname": "Importdata",
+        "entity": {
+          "name": "importdata",
+          "description": "Import",
+          "baselineattributes": [
+            {
+              "name": "tenant",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false
+            }
+          ],
+          "additionalattributes": [
+            {
+              "name": "user",
+              "type": "reference",
+              "entity": {
+                "name": "person",
+                "description": "person",
+                "baselineattributes": [
+                  {
+                    "name": "tenant",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "name": "name",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "name": "description",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "additionalattributes": [
+                  {
+                    "name": "unique_person_id",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "name": "displayname",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "name": "email",
+                    "type": "string",
+                    "required": true
+                  }
+                ]
+              },
+              "required": true
+            },
+            {
+              "name": "data",
+              "type": "json",
               "required": true
             }
           ]

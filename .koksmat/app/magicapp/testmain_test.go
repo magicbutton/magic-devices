@@ -8,10 +8,10 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	cwd, _ := os.Getwd()
+	//cwd, _ := os.Getwd()
 
-	utils.MakeEnvFile(cwd)
-	utils.Setup("./.env-test")
+	//utils.MakeEnvFile(cwd)
+	utils.Setup("./.env")
 	code := m.Run()
 
 	os.Exit(code)

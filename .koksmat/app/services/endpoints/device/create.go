@@ -1,4 +1,4 @@
-/*
+/* 
 File have been automatically created. To prevent the file from getting overwritten
 set the Front Matter property ´keep´ to ´true´ syntax for the code snippet
 ---
@@ -7,18 +7,23 @@ keep: false
 */
 //generator:  noma3
 package device
-
-// noma2
+// noma2    
 import (
-	"errors"
 	"log"
+    "errors"
+    "github.com/magicbutton/magic-devices/services/models/devicemodel"
+    )
 
-	"github.com/magicbutton/magic-devices/services/models/devicemodel"
-)
 
-func DeviceCreate(item devicemodel.Device) (*devicemodel.Device, error) {
-	log.Println("Calling DeviceCreate")
+func DeviceCreate(item devicemodel.Device ) (*devicemodel.Device,error) {
+log.Println("Calling DeviceCreate")
+    
+    
+    
+    return nil,errors.New("Not implemented")
 
-	return nil, errors.New("Not implemented")
+
+
 
 }
+    

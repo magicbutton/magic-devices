@@ -111,7 +111,18 @@ entities:
         type: reference
         entity: *person
         required: true
-
+  importdata: &importdata
+    name: importdata
+    description: Import
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: user
+        type: reference
+        entity: *person
+        required: true
+      - name: data
+        type: json
+        required: true
 models:
   itemMethods: &itemMethods
     - name: read
@@ -207,4 +218,13 @@ services:
       model: grantedexception
       objectname: Grantedexception
       entity: *grantedexception
+    methods: *itemMethods
+
+  - name: importdata
+    description: Import data
+    entity:
+      type: record
+      model: importdata
+      objectname: Importdata
+      entity: *importdata
     methods: *itemMethods

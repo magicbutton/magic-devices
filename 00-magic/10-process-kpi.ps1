@@ -29,7 +29,7 @@ magic-devices download excel
 magic-devices extract fullkpi
 magic-devices extract intune
 magic-devices extract tabelle
-
+magic-devices extract import-sql
 
 
 <#

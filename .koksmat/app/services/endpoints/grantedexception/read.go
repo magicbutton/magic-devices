@@ -1,4 +1,4 @@
-/*
+/* 
 File have been automatically created. To prevent the file from getting overwritten
 set the Front Matter property ´keep´ to ´true´ syntax for the code snippet
 ---
@@ -7,18 +7,23 @@ keep: false
 */
 //generator:  noma3
 package grantedexception
-
-// noma2
+// noma2    
 import (
-	"errors"
 	"log"
+    "errors"
+    "github.com/magicbutton/magic-devices/services/models/grantedexceptionmodel"
+    )
 
-	"github.com/magicbutton/magic-devices/services/models/grantedexceptionmodel"
-)
 
-func GrantedexceptionRead(id int) (*grantedexceptionmodel.Grantedexception, error) {
-	log.Println("Calling GrantedexceptionRead")
+func GrantedexceptionRead(id int ) (*grantedexceptionmodel.Grantedexception,error) {
+log.Println("Calling GrantedexceptionRead")
+    
+    
+    
+    return nil,errors.New("Not implemented")
 
-	return nil, errors.New("Not implemented")
+
+
 
 }
+    

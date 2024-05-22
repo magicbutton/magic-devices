@@ -18,7 +18,9 @@ COPY . .
 WORKDIR /kitchens/magic-devices/.koksmat/app
 
 RUN go install
-
+WORKDIR /kitchens/.koksmat/packages
+RUN 
+RUN go install github.com/magicbutton/magic-mix@latest
 
 
 

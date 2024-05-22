@@ -9,17 +9,17 @@ keep: false
 package devicetype
 
 import (
-	"log"
+    "log"
 
-	"github.com/magicbutton/magic-devices/applogic"
-	"github.com/magicbutton/magic-devices/database"
-	"github.com/magicbutton/magic-devices/services/models/devicetypemodel"
-	. "github.com/magicbutton/magic-devices/utils"
+    "github.com/magicbutton/magic-devices/applogic"
+    "github.com/magicbutton/magic-devices/database"
+    "github.com/magicbutton/magic-devices/services/models/devicetypemodel"
+    . "github.com/magicbutton/magic-devices/utils"
 )
 
 func DevicetypeSearch(query string) (*Page[devicetypemodel.Devicetype], error) {
-	log.Println("Calling Devicetypesearch")
+    log.Println("Calling Devicetypesearch")
 
-	return applogic.Search[database.Devicetype, devicetypemodel.Devicetype]("name", query, applogic.MapDevicetypeOutgoing)
+    return applogic.Search[database.Devicetype, devicetypemodel.Devicetype]("name", query, applogic.MapDevicetypeOutgoing)
 
 }
