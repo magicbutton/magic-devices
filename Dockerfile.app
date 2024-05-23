@@ -10,20 +10,20 @@ ENV GOBIN="/usr/local/bin"
 ENV PATH="/usr/lib/go-1.21/bin:${PATH}"
 
 ENV KITCHEN_HOME="/kitchens"
-RUN go install github.com/koksmat-com/koksmat@v2.1.1.15
+RUN go install github.com/koksmat-com/koksmat@v2.1.2.16
 RUN koksmat context init sharepoint
 WORKDIR /kitchens
 COPY ./.koksmat/kitchenroot .
 WORKDIR /kitchens/magic-devices
 COPY . .  
-WORKDIR /kitchens/magic-devices/.koksmat/app
 
+# Installs dependencies 
+RUN koksmat ship install all
+
+# Builds the app
+WORKDIR /kitchens/magic-devices/.koksmat/app
 RUN go install
-WORKDIR /kitchens/.koksmat/packages
-COPY ./.koksmat/packages .
-RUN unzip magic-mix.zip
-WORKDIR /kitchens/.koksmat/packages/magic-mix/.koksmat/app
-RUN go install 
+
 
 
 

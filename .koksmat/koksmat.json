@@ -9,5 +9,8 @@
   "dnsprod": "devices.intra.nexigroup.com",
   "dnstest": "devices-test.intra.nexigroup.com",
   "imagename": "ghcr.io/magicbutton/magic-devices",
-  "port": 4342
+  "port": 4342,
+  "packages": [
+    "magicbutton/magic-mix:0.0.3.3"
+    ]
 }
