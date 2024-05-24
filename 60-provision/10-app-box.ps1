@@ -1,6 +1,6 @@
 <#---
-title: Job deploy to production
-tag: jobdeployproduction
+title: App deploy to production
+tag: appdeployproduction
 api: post
 ---
 #>
@@ -39,6 +39,7 @@ function env($name, $value ) {
 
 
 
+
 $envs += env "PNPAPPID" $env:PNPAPPID
 $envs += env "PNPTENANTID" $env:PNPTENANTID
 $envs += env "PNPCERTIFICATE" $env:PNPCERTIFICATE
@@ -51,8 +52,8 @@ $configEnv = ""
 foreach ($item in $envs) {
 
   $configEnv += @"
-              - name: $($item.name)
-                value: $($item.value)
+          - name: $($item.name)
+            value: $($item.value)
 
 "@
 }
@@ -64,45 +65,27 @@ Then we build the deployment file
 $image = "$($imagename)-app:$($version)"
 
 $config = @"
-apiVersion: batch/v1
-kind: CronJob
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: $appname-job
+  name: $appname-box
 spec:
-  schedule: '10 * * * *'
-  concurrencyPolicy: Allow
-  suspend: false
-  jobTemplate:
+  selector:
+    matchLabels:
+      app: $appname-box
+  replicas: 1
+  template:
     metadata:
-      creationTimestamp: null
-    spec:
-      parallelism: 1
-      completions: 1
-      backoffLimit: 3
-      template:
-        metadata:
-          creationTimestamp: null
-          labels:
-            app: $appname-job
-        spec:
-
-          containers:
-            - name: $appname-app
-              image: $image
-              command: [$appname]
-              args: ["run","devicekpi"]               
-              env:
+      labels:
+        app: $appname-box
+    spec: 
+      containers:
+      - name: $appname-box
+        image: $image
+        command: ["sleep"]
+        args: ["infinity"]               
+        env:
 $configEnv                           
-              
-              
-          restartPolicy: Never
-          terminationGracePeriodSeconds: 30
-          dnsPolicy: ClusterFirst
-          securityContext: {}
-          schedulerName: default-scheduler
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 1
-                  
 
 "@
 

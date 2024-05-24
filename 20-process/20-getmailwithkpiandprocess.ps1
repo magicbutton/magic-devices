@@ -16,6 +16,30 @@ Synopsis
 
 #>
 
+
+
+# Tested with
+# -----------------------------------------
+# IsIntegerOrMinusOne "nosad" # returns -1
+# IsIntegerOrMinusOne "    1 " # returns 1
+# IsIntegerOrMinusOne " 2 " # returns 2
+
+function IsIntegerOrMinusOne($text) {
+    # Parse the $text to see if it is an integer or -1
+
+    $integer = -1
+    try {
+        $parsedInteger = [int]$text
+        $integer = $parsedInteger
+    }   
+    catch {
+        <#Do this if a terminating exception happens#>
+    }
+   
+    return $integer
+}
+
+
 <#
 
 ## Convert Excel to SQL
@@ -84,6 +108,8 @@ function RunSQL() {
 
 ## Extract KPIs using SQL
 #>
+
+
 function ExtractKPIs() {
     $w5SQL = @"
     select
@@ -113,6 +139,20 @@ ORDER BY
     id
 LIMIT
     1    
+"@
+    $w8SQL = @"
+    select
+    'w8' as KPI,
+    " (column 4)" AS Numerator,
+    " (column 5)" AS Denominator
+    from
+    "excelimport"."devicekpi_tables"
+    WHERE
+    "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'System Software patched'
+    ORDER BY
+    id
+    LIMIT
+    1     
 "@
 
     $w4SQL = @"
@@ -195,38 +235,43 @@ LIMIT
     $w6 = magic-devices sql select $w6SQL | convertfrom-json
     $w7a = magic-devices sql select $w7aSQL | convertfrom-json
     $w7b = magic-devices sql select $w7bSQL | convertfrom-json
+    $w8 = magic-devices sql select $w8SQL | convertfrom-json
     
     $kpis = @{
         "created" = (get-date).ToString("yyyy-MM-ddTHH:mm:ssZ") 
         w5        = @{
-            num = $w5.Numerator
-            den = $w5.Denominator
+            num = IsIntegerOrMinusOne $w5.Numerator
+            den = IsIntegerOrMinusOne $w5.Denominator
         }
         w6        = @{
-            num = $w6.Numerator
-            den = $w6.Denominator
+            num = IsIntegerOrMinusOne $w6.Numerator
+            den = IsIntegerOrMinusOne $w6.Denominator
+        }
+        w8        = @{
+            num = IsIntegerOrMinusOne $w8.Numerator
+            den = IsIntegerOrMinusOne $w8.Denominator
         }
         w4        = @{
-            num = $w4.Numerator
-            den = $w4.Denominator
+            num = IsIntegerOrMinusOne $w4.Numerator
+            den = IsIntegerOrMinusOne $w4.Denominator
         }
         w3        = @{
-            num = $w3.Numerator
-            den = $w3.Denominator
+            num = IsIntegerOrMinusOne $w3.Numerator
+            den = IsIntegerOrMinusOne $w3.Denominator
         }
         w2        = @{
-            num = $w2.Numerator
-            den = $w2.Denominator
+            num = IsIntegerOrMinusOne $w2.Numerator
+            den = IsIntegerOrMinusOne $w2.Denominator
         }
         w7a       = @{
-            num = $w7a.Numerator
+            num = IsIntegerOrMinusOne $w7a.Numerator
         }
         w7b       = @{
-            num = $w7b.Numerator
+            num = IsIntegerOrMinusOne $w7b.Numerator
         }
 
         cs11      = @{
-            num = "missing"
+            num = -1
         }
       
     
@@ -290,6 +335,7 @@ if (-not (Test-Path $workdir)) {
 }
 
 
+
 $workdir = Resolve-Path $workdir
 
 write-host "Workdir: $workdir"
@@ -297,23 +343,18 @@ write-host "Workdir: $workdir"
 $to = "niels.johansen@nexigroup.com"
 $from = "valerio.moles@external.nexigroup.com"
 
-$mailfolders = GraphAPI $env:GRAPH_ACCESSTOKEN "GET" "https://graph.microsoft.com/v1.0/users/$to/mailFolders"
+
+# $mailfolders = GraphAPI $env:GRAPH_ACCESSTOKEN "GET" "https://graph.microsoft.com/v1.0/users/$to/mailFolders"
 
 $inboxFolderId = "inbox" # $mailfolders.value | Where-Object { $_.displayName -eq "Inbox" } | Select-Object -ExpandProperty id
-if ($null -eq $inboxFolderId) {
-    throw "Inbox Mailfolder not found"
-}
 $archiveFolderId = "archive" # $mailfolders.value | Where-Object { $_.displayName -eq "Archive" } | Select-Object -ExpandProperty id
-if ($null -eq $archiveFolderId) {
-    throw "Archive Mailfolder not found"
-}
 
 $url = @"
 https://graph.microsoft.com/v1.0/users/$to/messages?$('$')filter=parentFolderId eq '$inboxFolderId' and from/emailAddress/address eq '$from' and hasAttachments eq true&$('$')expand = attachments
 "@
 
-#write-host $url
-#$url | Set-Clipboard
+
+koksmat trace log "Calling Graph to get mails to $to with attachments from $from" 
 $mails = GraphAPI $env:GRAPH_ACCESSTOKEN "GET" $url 
 # $mails = Get-Content (join-path $workdir "mails.json") | ConvertFrom-Json
 
@@ -322,7 +363,7 @@ if ($null -eq $mails) {
 }
 
 if ($mails.value.Count -eq 0) {
-    write-host "No mails found"
+    koksmat trace log  "No mails found" 
     return
 }
 
@@ -334,6 +375,7 @@ $foundExcelFile = $false
 $mails.value | ForEach-Object {
    
     $mail = $_
+    koksmat trace log  "Got mail with subject $($mail.subject)" 
 
     $mail.attachments | ForEach-Object {
         
@@ -343,9 +385,9 @@ $mails.value | ForEach-Object {
             
         }
         else {
-            write-host "Attachment is an Excel file" -ForegroundColor Green
-        
-            write-host $attachment.name
+            koksmat trace log  "Found Excel file $($attachment.name)" 
+
+            
             $filename = $attachment.name
  
             $base64String = $attachment.contentBytes
@@ -357,16 +399,27 @@ $mails.value | ForEach-Object {
             Write-Host "Excel file has been successfully written to $excelfilename"
             $foundExcelFile = $true
 
-  
+            koksmat trace log "Converting Excel to SQL"
             ConvertExcelToSQL  "tables"  "devicekpi_tables"
             ConvertExcelToSQL  "intune"  "devicekpi_intune"
+
+            koksmat trace log "Executing SQL"
             RunSQL
+
+            koksmat trace log "Quering SQL"
+
             ExtractKPIs
+
+            koksmat trace log "Quering SQL"
+
             UploadBlob
+      
+
           
         }    
     }
     if ($foundExcelFile) {
+        koksmat trace log "Moving mail to archive"
         $moveMessageUrl = "https://graph.microsoft.com/v1.0/users/$to/messages/$($mail.id)/move"
 
         $moveData = convertto-json @{
@@ -380,6 +433,6 @@ $mails.value | ForEach-Object {
         }
        
     }
-
+    koksmat trace log "Done"
 
 }

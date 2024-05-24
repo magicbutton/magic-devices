@@ -1,8 +1,8 @@
 {
   "version": {
     "minor": 0,
-    "build": 5,
-    "patch": 5,
+    "build": 6,
+    "patch": 6,
     "major": 0
   },
   "appname": "magic-devices",
@@ -12,5 +12,5 @@
   "port": 4342,
   "packages": [
     "magicbutton/magic-mix:0.0.3.3"
-    ]
+  ]
 }
