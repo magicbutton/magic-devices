@@ -118,6 +118,52 @@ function ExtractKPIs() {
  
 
 }
+
+function Update-AzureBlobJsonRest {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$JsonFilePath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$BlobSasUrl
+    )
+
+    # Validate the JSON file path
+    if (-not (Test-Path $JsonFilePath)) {
+        Write-Error "The specified JSON file does not exist: $JsonFilePath"
+        return
+    }
+
+    try {
+        # Read the JSON file content
+        $jsonContent = Get-Content -Path $JsonFilePath -Raw
+
+        # Parse the Blob SAS URL
+        $uri = [Uri]::new($BlobSasUrl)
+        $blobUri = $uri.AbsoluteUri
+        $sasToken = $uri.Query
+
+        # Set the necessary headers for the REST API request
+        $headers = @{
+            "x-ms-blob-type" = "BlockBlob"
+            "x-ms-date"      = (Get-Date).ToString("R")
+            "x-ms-version"   = "2020-04-08"
+            "Content-Type"   = "application/json"
+        }
+
+        # Make the REST API request to upload the JSON file
+        $response = Invoke-RestMethod -Uri $blobUri -Method Put -Headers $headers -Body $jsonContent
+
+        Write-Output "The JSON file has been successfully updated on the Azure Blob Storage."
+    }
+    catch {
+        Write-Error "An error occurred: $_"
+    }
+}
+
+# Example usage:
+# Update-AzureBlobJsonRest -JsonFilePath "C:\path\to\your\file.json" -BlobSasUrl "https://yourstorageaccount.blob.core.windows.net/yourcontainer/yourfile.json?sasToken"
+
 <#
 
 ## Upload result to Blob
@@ -130,31 +176,12 @@ function UploadBlob() {
         throw "DEVICEKPIBLOB environment variable not set"
     }
     $localFilePath = (join-path $workdir "kpis.json")
+    Update-AzureBlobJsonRest $localFilePath  $sasUrl 
 
-    # Read the file content
-    $fileContent = Get-Content -Path $localFilePath -Raw
-
-    # Create a web request
-    $webRequest = [System.Net.HttpWebRequest]::Create($sasUrl)
-    $webRequest.Method = "PUT"
-
-    # Set the content type
-    $webRequest.ContentType = "application/octet-stream"
-    $webRequest.ContentLength = $fileContent.Length
-    $webRequest.Headers.Add("x-ms-blob-type", "BlockBlob")
-
-    # Write the file content to the request stream
-    $requestStream = $webRequest.GetRequestStream()
-    $requestStream.Write([System.Text.Encoding]::UTF8.GetBytes($fileContent), 0, $fileContent.Length)
-    $requestStream.Close()
-
-    # Get the response
-    $response = $webRequest.GetResponse()
-
-    # Display the response status code
-    Write-Output "Response Status Code: $($response.StatusCode)"
 
 }
+
+
 
 <#
 
