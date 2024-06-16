@@ -21,7 +21,7 @@ func ProvisionAppdeployproductionPost() usecase.Interactor {
 	}
 	u := usecase.NewInteractor(func(ctx context.Context, input Request, output *string) error {
 
-		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "60-provision", "20-app-job.ps1", "")
+		_, err := execution.ExecutePowerShell("john", "*", "magic-devices", "60-provision", "10-app-box.ps1", "")
 		if err != nil {
 			return err
 		}

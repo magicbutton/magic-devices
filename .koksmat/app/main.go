@@ -27,6 +27,7 @@ description: Describe the main purpose of this kitchen
 	magicapp.RegisterServiceCmd()
 	magicapp.RegisterSQLCmd()
 	magicapp.RegisterImportCmd()
+	
 	utils.RootCmd.PersistentFlags().BoolVarP(&utils.Verbose, "verbose", "v", false, "verbose output")
 
 	magicapp.Execute(name, "magic-devices", "")

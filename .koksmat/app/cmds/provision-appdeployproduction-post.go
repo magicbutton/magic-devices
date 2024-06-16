@@ -17,7 +17,7 @@ import (
 
 func ProvisionAppdeployproductionPost(ctx context.Context, args []string) (*string, error) {
 
-	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "60-provision", "20-app-job.ps1", "")
+	result, pwsherr := execution.ExecutePowerShell("john", "*", "magic-devices", "60-provision", "10-app-box.ps1", "")
 	if pwsherr != nil {
 		return nil, pwsherr
 	}

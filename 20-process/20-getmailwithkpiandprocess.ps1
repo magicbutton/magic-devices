@@ -1,6 +1,6 @@
 <#---
 title: Get KPI report data
-connection: graph, postgres
+connection: graph
 api: post
 tag: devicekpi
 ---
@@ -33,77 +33,34 @@ function IsIntegerOrMinusOne($text) {
         $integer = $parsedInteger
     }   
     catch {
-        <#Do this if a terminating exception happens#>
+        # Do nothing,  -1 is the value in case of error
     }
    
     return $integer
 }
 
 
-<#
+function Get-KPIValue {
+    param (
+        [Parameter(Mandatory = $true)]
+        [array]$Data,
+        [Parameter(Mandatory = $true)]
+        [string]$KPI,
+   
+        [Parameter(Mandatory = $true)]
+        [array]$Field
+    )
 
-## Convert Excel to SQL
-#>
-function ConvertExcelToSQL($sheetname, $tablename) {
-    $filename = join-path $workdir "devicekpi.xlsx"
-
-    
-    write-host "Workdir: $workdir"
-    
-    $exportdir = join-path $workdir "sqlimport" "devicekpi"
-    if (-not (Test-Path $exportdir)) {
-        New-Item -Path $exportdir -ItemType Directory | Out-Null
+    $result = $Data | Where-Object { $_.kpi -eq $KPI }
+    if ($null -eq $result) {
+        return -1
     }
-    else {
-        Remove-Item -Path "$($exportdir)/$($tablename)*" -Recurse -Force
+    $value = $result.$Field
+    if ($null -eq $value) {
+        return -1
     }
-    
-    Push-Location
-    Set-Location $exportdir
-    write-host $filename 
-    try {
-
-        magic-mix from excel to sql $filename $sheetname $tablename 
-    }
-    catch {
-        Write-Host "Error: $_" -ForegroundColor Red
-    }
-    finally {
-        Pop-Location
-    }
+    return $value
 }
-
-<#
-
-## Process SQL
-#>
-function RunSQL() {
-    $sqldir = join-path $workdir "sqlimport" "devicekpi"
-
-    Push-Location
-    Set-Location $psscriptroot
-
-    Get-ChildItem -Path  $sqldir  -Filter "*.createtablesql.sql" | ForEach-Object {
-        $sql = get-content $_.FullName  -Raw
-    
-        # Write-Host   magic-devices sql exec $sql
-        $rowsAffected = magic-devices sql exec $sql
-        write-host $rowsAffected "rows affected executing" $_.Name
-
-  
-    }
-    Get-ChildItem -Path  $sqldir  -Filter "*.inserttablesql*.sql" | ForEach-Object {
-        $sql = get-content $_.FullName  -Raw
-    
-        # Write-Host   magic-devices sql exec $sql
-        $rowsAffected = magic-devices sql exec $sql
-        write-host $rowsAffected "rows affected executing" $_.Name
-
-  
-    }
-    Pop-Location
-}
-
 <#
 
 ## Extract KPIs using SQL
@@ -111,167 +68,48 @@ function RunSQL() {
 
 
 function ExtractKPIs() {
-    $w5SQL = @"
-    select
-    'w5' as KPI,
-    " (column 4)" AS Numerator,
-    " (column 5)" AS Denominator
-from
-    "excelimport"."devicekpi_tables"
-WHERE
-    "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Antivirus installed and monitored'
-ORDER BY
-    id
-LIMIT
-    1
-"@
 
-    $w6SQL = @"
-    select
-    'w6' as KPI,
-    " (column 4)" AS Numerator,
-    " (column 5)" AS Denominator
-from
-    "excelimport"."devicekpi_tables"
-WHERE
-    "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'DLP installed and monitored'
-ORDER BY
-    id
-LIMIT
-    1    
-"@
-    $w8SQL = @"
-    select
-    'w8' as KPI,
-    " (column 4)" AS Numerator,
-    " (column 5)" AS Denominator
-    from
-    "excelimport"."devicekpi_tables"
-    WHERE
-    "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'System Software patched'
-    ORDER BY
-    id
-    LIMIT
-    1     
-"@
-
-    $w4SQL = @"
-select
-       'w4' as KPI,
-       " (column 4)" AS Numerator,
-       " (column 5)" AS Denominator
-from
-       "excelimport"."devicekpi_tables"
-WHERE
-       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Endpoint Detection & Response installed and monitored'
-ORDER BY
-       id
-LIMIT
-       1
-"@
-    $w3SQL = @"
-select
-       'w3' as KPI,
-       " (column 4)" AS Numerator,
-       " (column 5)" AS Denominator
-from
-       "excelimport"."devicekpi_tables"
-WHERE
-       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Disk-encryption (Bitlocker)'
-ORDER BY
-       id
-LIMIT
-       1
-"@
-
-    $w7aSQL = @"
-select
-       'w7a' as KPI,
-       " (column 4)" AS Numerator,
-       " (column 5)" AS Denominator
-from
-       "excelimport"."devicekpi_tables"
-WHERE
-       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Users with USB enablement authorization (with encryption)'
-ORDER BY
-       id
-LIMIT
-       1
-"@
-
-    $w2SQL = @"
-select
-       'w2' as KPI,
-       " (column 2)" AS Numerator,
-       " (column 4)" AS Denominator
-FROM
-       "excelimport"."devicekpi_intune"
-where
-       "INTUNE (column 1)" = 'Totale complessivo'
-ORDER BY
-       id
-LIMIT
-       1
-"@
-
-    $w7bSQL = @"
-select
-       'w7b' as KPI,
-       " (column 4)" AS Numerator,
-       " (column 5)" AS Denominator
-from
-       "excelimport"."devicekpi_tables"
-WHERE
-       "All PC / CORP+CARD+CONCARDIS+CMG (column 1)" = 'Users with USB enablement authorization (without encryption)'
-ORDER BY
-       id
-LIMIT
-       1
-"@
-    $w2 = magic-devices sql select $w2SQL | convertfrom-json
-    $w3 = magic-devices sql select $w3SQL | convertfrom-json
-    $w4 = magic-devices sql select $w4SQL | convertfrom-json
-    $w5 = magic-devices sql select $w5SQL | convertfrom-json
-    $w6 = magic-devices sql select $w6SQL | convertfrom-json
-    $w7a = magic-devices sql select $w7aSQL | convertfrom-json
-    $w7b = magic-devices sql select $w7bSQL | convertfrom-json
-    $w8 = magic-devices sql select $w8SQL | convertfrom-json
+    $data = magic-mix sql select "select * from devicekpi.kpi" | convertfrom-json
     
     $kpis = @{
         "created" = (get-date).ToString("yyyy-MM-ddTHH:mm:ssZ") 
         w5        = @{
-            num = IsIntegerOrMinusOne $w5.Numerator
-            den = IsIntegerOrMinusOne $w5.Denominator
+            num = Get-KPIValue $data w5 numerator
+            den = Get-KPIValue $data w5 denominator
         }
         w6        = @{
-            num = IsIntegerOrMinusOne $w6.Numerator
-            den = IsIntegerOrMinusOne $w6.Denominator
+            num = Get-KPIValue $data w6 numerator
+            den = Get-KPIValue $data w6 denominator
         }
         w8        = @{
-            num = IsIntegerOrMinusOne $w8.Numerator
-            den = IsIntegerOrMinusOne $w8.Denominator
+            num = Get-KPIValue $data w8 numerator
+            den = Get-KPIValue $data w8 denominator
+            
         }
         w4        = @{
-            num = IsIntegerOrMinusOne $w4.Numerator
-            den = IsIntegerOrMinusOne $w4.Denominator
+            num = Get-KPIValue $data w4 numerator
+            den = Get-KPIValue $data w4 denominator
+            
         }
         w3        = @{
-            num = IsIntegerOrMinusOne $w3.Numerator
-            den = IsIntegerOrMinusOne $w3.Denominator
+            num = Get-KPIValue $data w3 numerator
+            den = Get-KPIValue $data w3 denominator
         }
         w2        = @{
-            num = IsIntegerOrMinusOne $w2.Numerator
-            den = IsIntegerOrMinusOne $w2.Denominator
+            num = Get-KPIValue $data w2 numerator
+            den = Get-KPIValue $data w2 denominator
+            
         }
         w7a       = @{
-            num = IsIntegerOrMinusOne $w7a.Numerator
+            num = Get-KPIValue $data w7a numerator
+           
         }
         w7b       = @{
-            num = IsIntegerOrMinusOne $w7b.Numerator
+            num = Get-KPIValue $data w7b numerator
         }
 
         cs11      = @{
-            num = -1
+            num = Get-KPIValue $data cs11 numerator
         }
       
     
@@ -337,9 +175,12 @@ if (-not (Test-Path $workdir)) {
 
 
 $workdir = Resolve-Path $workdir
-
+Set-Location $workdir
 write-host "Workdir: $workdir"
 
+ExtractKPIs
+UploadBlob
+return
 $to = "niels.johansen@nexigroup.com"
 $from = "valerio.moles@external.nexigroup.com"
 
@@ -399,19 +240,16 @@ $mails.value | ForEach-Object {
             Write-Host "Excel file has been successfully written to $excelfilename"
             $foundExcelFile = $true
 
-            koksmat trace log "Converting Excel to SQL"
-            ConvertExcelToSQL  "tables"  "devicekpi_tables"
-            ConvertExcelToSQL  "intune"  "devicekpi_intune"
+            koksmat trace log "Converting Excel to JSON"
+            magic-mix from excel to json $excelfilename devicekpi
 
-            koksmat trace log "Executing SQL"
-            RunSQL
+            koksmat trace log "Uploading JSON"
+            magic-mix upload devicekpi
 
-            koksmat trace log "Quering SQL"
-
+            koksmat trace log "Reading KPIs from database"
             ExtractKPIs
 
-            koksmat trace log "Quering SQL"
-
+            koksmat trace log "Uploading KPIs to Blob"
             UploadBlob
       
 

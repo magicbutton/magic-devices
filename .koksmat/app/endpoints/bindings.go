@@ -20,6 +20,7 @@ func AddEndpoints(s *web.Service, jwtAuth func(http.Handler) http.Handler) {
 			//	r.Use(rateLimitByAppId(50))
 			//r.Method(http.MethodPost, "/", nethttp.NewHandler(ExchangeCreateRoomsPost()))
 			r.Method(http.MethodPost, "/run/devicekpi", nethttp.NewHandler(RunDevicekpiPost()))
+			r.Method(http.MethodPost, "/provision/appdeployproduction", nethttp.NewHandler(ProvisionAppdeployproductionPost()))
 			r.Method(http.MethodPost, "/provision/jobdeployproduction", nethttp.NewHandler(ProvisionJobdeployproductionPost()))
 			r.Method(http.MethodPost, "/health/ping", nethttp.NewHandler(HealthPingPost()))
 			r.Method(http.MethodPost, "/health/coreversion", nethttp.NewHandler(HealthCoreversionPost()))
