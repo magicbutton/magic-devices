@@ -205,9 +205,7 @@ $workdir = Resolve-Path $workdir
 Set-Location $workdir
 write-host "Workdir: $workdir"
 
-ExtractKPIs
-UploadBlob
-return
+
 $to = "niels.johansen@nexigroup.com"
 $from = "valerio.moles@external.nexigroup.com"
 
