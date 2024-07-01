@@ -67,9 +67,9 @@ function Get-KPIValue {
 #>
 
 
-function ExtractKPIs() {
+function ExtractKPIs($data) {
 
-    $data = magic-mix sql select "select * from devicekpi.kpi" | convertfrom-json
+  
     
     $kpis = @{
         "created" = (get-date).ToString("yyyy-MM-ddTHH:mm:ssZ") 
@@ -210,6 +210,8 @@ $to = "niels.johansen@nexigroup.com"
 $from = "valerio.moles@external.nexigroup.com"
 
 
+
+
 # $mailfolders = GraphAPI $env:GRAPH_ACCESSTOKEN "GET" "https://graph.microsoft.com/v1.0/users/$to/mailFolders"
 
 $inboxFolderId = "inbox" # $mailfolders.value | Where-Object { $_.displayName -eq "Inbox" } | Select-Object -ExpandProperty id
@@ -268,12 +270,18 @@ $mails.value | ForEach-Object {
             koksmat trace log "Converting Excel to JSON"
             magic-mix from excel to json $excelfilename devicekpi
 
+            koksmat trace log "Deleting previous imported JSON"
+            magic-mix sql exec mix "delete from importdata where name ilike 'devicekpi%'"
+
             koksmat trace log "Uploading JSON"
             magic-mix upload devicekpi
 
             koksmat trace log "Reading KPIs from database"
-            ExtractKPIs
-
+            [string]$json = magic-mix sql query mix  "select * from devicekpi.kpi" 
+            write-host $json 
+            $data = $json.Trim() | convertfrom-json
+            ExtractKPIs $data
+            
             koksmat trace log "Uploading KPIs to Blob"
             UploadBlob
       
