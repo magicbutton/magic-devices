@@ -3,3 +3,4 @@ workdir
 .DS_Store
 .env
 .koksmat/app/__debug*
+temp.ps1

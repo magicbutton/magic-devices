@@ -199,6 +199,9 @@ if (-not (Test-Path $workdir)) {
     New-Item -Path $workdir -ItemType Directory | Out-Null
 }
 
+$root = [System.IO.Path]::GetFullPath(( join-path $PSScriptRoot ..)) 
+. "$root/.koksmat/pwsh/check-env.ps1" "GRAPH_APPID", "GRAPH_APPSECRET", "GRAPH_APPDOMAIN"
+. "$root/.koksmat/pwsh/connectors/graph/connect.ps1"
 
 
 $workdir = Resolve-Path $workdir
